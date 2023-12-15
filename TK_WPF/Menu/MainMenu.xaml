@@ -144,9 +144,8 @@
                 <ControlTemplate TargetType="ToggleButton">
                     <Border
                         Name="Border"
-                        Background="LightGray"
-                        CornerRadius="0,5,5,0"
-                        Opacity="0">
+                        Background="Transparent"
+                        CornerRadius="0,5,5,0">
                         <TK:TK_Icon
                             x:Name="Icon"
                             FontSize="{TemplateBinding FontSize}"
@@ -191,9 +190,6 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Border" Property="Opacity" Value="0.7" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -356,11 +352,6 @@
                             FontSize="{Binding FontSize, RelativeSource={RelativeSource AncestorType=TK:TK_MainMenu, Mode=FindAncestor}}"
                             Text="{Binding Header}" />
                     </Grid>
-                    <!--<HierarchicalDataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding IconCode}" Value="{x:Null}">
-                            <Setter TargetName="c1" Property="Width" Value="13" />
-                        </DataTrigger>
-                    </HierarchicalDataTemplate.Triggers>-->
                 </HierarchicalDataTemplate>
             </Setter.Value>
         </Setter>
@@ -407,14 +398,6 @@
                                 FontFamily="{TemplateBinding FontFamily}"
                                 FontSize="{TemplateBinding FontSize}"
                                 Foreground="{TemplateBinding Foreground}" />
-                            <!--<Grid.Effect>
-                                <DropShadowEffect
-                                    BlurRadius="7"
-                                    Direction="0"
-                                    Opacity="0.8"
-                                    ShadowDepth="0"
-                                    Color="#BDBDBD" />
-                            </Grid.Effect>-->
                         </Grid>
                         <ContentControl
                             Grid.Row="0"
@@ -429,14 +412,36 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch" />
-                        <ToggleButton
-                            Name="PART_ExpanderButton"
+                            VerticalAlignment="Stretch"
+                            Panel.ZIndex="-2" />
+                        <Border
+                            Name="Border"
                             Grid.Row="1"
                             Grid.Column="1"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Style="{StaticResource ExpanderButton}" />
+                            Panel.ZIndex="-1"
+                            Background="#DBDBDB"
+                            CornerRadius="0,5,5,0"
+                            RenderTransformOrigin="0,0.5">
+                            <StackPanel Orientation="Vertical" RenderTransformOrigin="0.5,0.5">
+                                <TK:TK_Button
+                                    x:Name="PART_DefaultButton"
+                                    Background="Transparent"
+                                    ButtonShowType="Icon"
+                                    Foreground="White"
+                                    Icon="System_Home"
+                                    MouseOverBack="Transparent"
+                                    MouseOverFore="White" />
+                                <ToggleButton Name="PART_ExpanderButton" Style="{StaticResource ExpanderButton}" />
+                                <StackPanel.RenderTransform>
+                                    <TranslateTransform x:Name="RunStory1" X="-400" />
+                                </StackPanel.RenderTransform>
+                            </StackPanel>
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="RunStory" ScaleX="0.3" ScaleY="1" />
+                            </Border.RenderTransform>
+                        </Border>
                         <ContentControl
                             Grid.Row="2"
                             Grid.Column="1"
@@ -446,6 +451,54 @@
                             FontSize="{TemplateBinding FontSize}"
                             Foreground="{TemplateBinding Foreground}" />
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory" Storyboard.TargetProperty="ScaleX">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="0.3" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory1" Storyboard.TargetProperty="X">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="-400" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory" Storyboard.TargetProperty="ScaleX">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="1" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.3">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory1" Storyboard.TargetProperty="X">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="0" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-400">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut" />
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

@@ -49,11 +49,13 @@ namespace TK_WPF
     [TemplatePart(Name = ContentName, Type = typeof(ContentPresenter))]
     [TemplatePart(Name = ExpanderButtonName, Type = typeof(ToggleButton))]
     [TemplatePart(Name = MenuName, Type = typeof(Grid))]
+    [TemplatePart(Name =DefaultButtonName, Type = typeof(TK_Button))]
     public class TK_MainMenu : TreeView
     {
         private const string ContentName = "PART_Content";
         private const string ExpanderButtonName = "PART_ExpanderButton";
         private const string MenuName = "PART_Menu";
+        private const string DefaultButtonName = "PART_DefaultButton";
         private ContentPresenter contentControl;
         private Grid grid;
         static TK_MainMenu()
@@ -75,6 +77,21 @@ namespace TK_WPF
             if (GetTemplateChild(MenuName) is Grid grid)
             {
                 this.grid = grid;
+            }
+            if(GetTemplateChild(DefaultButtonName)is TK_Button bt)
+            {
+                bt.Click += (s, e) =>
+                {
+                    this.contentControl.Content = null;
+                    if (this.DefaultContent != null)
+                    {
+                        this.contentControl.Content = this.DefaultContent;
+                    }
+                    else
+                    {
+                        this.contentControl.Content = new TK_Icon() { IconCode = IconCode.System_Home_Fill, Foreground = Brushes.Black, FontSize = 80 };
+                    }
+                };
             }
             this.SelectedItemChanged += OnSelectedItemChanged;
             this.OnSelectedItemChanged(null, null);
@@ -121,15 +138,15 @@ namespace TK_WPF
                     return;
                 }
             }
-            this.contentControl.Content = null;
-            if (this.DefaultContent != null)
-            {
-                this.contentControl.Content = this.DefaultContent;
-            }
-            else
-            {
-                this.contentControl.Content = new TK_Icon() { IconCode = IconCode.System_Home_Fill ,Foreground=Brushes.Black,FontSize=80};
-            }
+            //this.contentControl.Content = null;
+            //if (this.DefaultContent != null)
+            //{
+            //    this.contentControl.Content = this.DefaultContent;
+            //}
+            //else
+            //{
+            //    this.contentControl.Content = new TK_Icon() { IconCode = IconCode.System_Home_Fill ,Foreground=Brushes.Black,FontSize=80};
+            //}
         }
 
         #region 属性

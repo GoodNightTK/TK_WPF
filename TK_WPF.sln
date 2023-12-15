@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TK_WPF", "TK_WPF\TK_WPF.csproj", "{A689B5C7-6518-4C3E-A02B-48BCF7137973}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDemo", "TestDemo\TestDemo.csproj", "{0DB35D53-6E0C-4949-B7B7-D1422FD0675F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A689B5C7-6518-4C3E-A02B-48BCF7137973}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A689B5C7-6518-4C3E-A02B-48BCF7137973}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A689B5C7-6518-4C3E-A02B-48BCF7137973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DB35D53-6E0C-4949-B7B7-D1422FD0675F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DB35D53-6E0C-4949-B7B7-D1422FD0675F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DB35D53-6E0C-4949-B7B7-D1422FD0675F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DB35D53-6E0C-4949-B7B7-D1422FD0675F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
