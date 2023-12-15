@@ -81,6 +81,7 @@
     <Style x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="IsChecked" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
@@ -198,7 +199,7 @@
     </Style>
 
     <Style x:Key="TreeViewStyle" TargetType="TreeViewItem">
-        <!--<Setter Property="IsExpanded" Value="{Binding IsExpanded,Mode=TwoWay}"/>-->
+        <Setter Property="IsExpanded" Value="True" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -429,11 +430,15 @@
                                     x:Name="PART_DefaultButton"
                                     Background="Transparent"
                                     ButtonShowType="Icon"
+                                    FontSize="{TemplateBinding FontSize}"
                                     Foreground="White"
                                     Icon="System_Home"
                                     MouseOverBack="Transparent"
                                     MouseOverFore="White" />
-                                <ToggleButton Name="PART_ExpanderButton" Style="{StaticResource ExpanderButton}" />
+                                <ToggleButton
+                                    Name="PART_ExpanderButton"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    Style="{StaticResource ExpanderButton}" />
                                 <StackPanel.RenderTransform>
                                     <TranslateTransform x:Name="RunStory1" X="-400" />
                                 </StackPanel.RenderTransform>

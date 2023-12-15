@@ -49,7 +49,7 @@ namespace TK_WPF
     [TemplatePart(Name = ContentName, Type = typeof(ContentPresenter))]
     [TemplatePart(Name = ExpanderButtonName, Type = typeof(ToggleButton))]
     [TemplatePart(Name = MenuName, Type = typeof(Grid))]
-    [TemplatePart(Name =DefaultButtonName, Type = typeof(TK_Button))]
+    [TemplatePart(Name = DefaultButtonName, Type = typeof(TK_Button))]
     public class TK_MainMenu : TreeView
     {
         private const string ContentName = "PART_Content";
@@ -78,23 +78,47 @@ namespace TK_WPF
             {
                 this.grid = grid;
             }
-            if(GetTemplateChild(DefaultButtonName)is TK_Button bt)
+            if (GetTemplateChild(DefaultButtonName) is TK_Button bt)
             {
-                bt.Click += (s, e) =>
-                {
-                    this.contentControl.Content = null;
-                    if (this.DefaultContent != null)
-                    {
-                        this.contentControl.Content = this.DefaultContent;
-                    }
-                    else
-                    {
-                        this.contentControl.Content = new TK_Icon() { IconCode = IconCode.System_Home_Fill, Foreground = Brushes.Black, FontSize = 80 };
-                    }
-                };
+                bt.Click += Bt_Click;
             }
             this.SelectedItemChanged += OnSelectedItemChanged;
-            this.OnSelectedItemChanged(null, null);
+            this.Bt_Click(null, null);
+        }
+
+        private void Bt_Click(object sender, RoutedEventArgs e)
+        {
+            this.contentControl.Content = null;
+            this.ClearTreeViewItemsControlSelection(this.Items, this.ItemContainerGenerator);
+            if (this.DefaultContent != null)
+            {
+                this.contentControl.Content = this.DefaultContent;
+            }
+            else
+            {
+                this.contentControl.Content = new TK_Icon() { IconCode = IconCode.System_Home_Fill, Foreground = Brushes.Black, FontSize = 80 };
+            }
+        }
+
+        /// <summary>
+        /// 清除选择
+        /// </summary>
+        /// <param name="ic"></param>
+        /// <param name="icg"></param>
+        private void ClearTreeViewItemsControlSelection(ItemCollection ic, ItemContainerGenerator icg)
+        {
+            if ((ic != null) && (icg != null))
+                for (int i = 0; i < ic.Count; i++)
+                {
+                    if (icg.ContainerFromIndex(i) is TreeViewItem item)
+                    {
+                        if (item != null)
+                        {
+                            ClearTreeViewItemsControlSelection(item.Items, item.ItemContainerGenerator);
+                            item.IsSelected = false;
+                        }
+                    }
+                }
         }
 
         private void Button_Unchecked(object sender, RoutedEventArgs e)
@@ -138,15 +162,6 @@ namespace TK_WPF
                     return;
                 }
             }
-            //this.contentControl.Content = null;
-            //if (this.DefaultContent != null)
-            //{
-            //    this.contentControl.Content = this.DefaultContent;
-            //}
-            //else
-            //{
-            //    this.contentControl.Content = new TK_Icon() { IconCode = IconCode.System_Home_Fill ,Foreground=Brushes.Black,FontSize=80};
-            //}
         }
 
         #region 属性
