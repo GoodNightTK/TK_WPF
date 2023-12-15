@@ -32,10 +32,10 @@
                         CornerRadius="{TemplateBinding CornerRadius}">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="50" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <Border x:Name="titleBar" Padding="5">
+                            <Border x:Name="PART_Title" Padding="5">
                                 <DockPanel>
                                     <TK:TK_Button
                                         x:Name="PART_CloseButton"
@@ -61,6 +61,7 @@
 
                             <Border x:Name="contentBorder" Grid.Row="1">
                                 <ContentControl
+                                    Name="PART_Content"
                                     Margin="{TemplateBinding Padding}"
                                     Content="{TemplateBinding DialogContent}"
                                     Focusable="False"
@@ -82,7 +83,7 @@
                                 <Condition Property="Title" Value="{x:Null}" />
                                 <Condition Property="ShowCloseButton" Value="False" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="titleBar" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="PART_Title" Property="Visibility" Value="Collapsed" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

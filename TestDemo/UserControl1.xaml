@@ -1,13 +1,21 @@
-﻿<UserControl x:Class="TestDemo.UserControl1"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TestDemo"
-             xmlns:TK="clr-namespace:TK_WPF;assembly=TK_WPF"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="AliceBlue">
+﻿<UserControl
+    x:Class="TestDemo.UserControl1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:TK="clr-namespace:TK_WPF;assembly=TK_WPF"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TestDemo"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="400"
+    Height="250"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Background="AliceBlue"
+    mc:Ignorable="d">
+    <UserControl.DataContext>
+        <local:ViewModel />
+    </UserControl.DataContext>
     <TK:TK_ScrollViewer>
-        <Grid Height="3000" Background="Beige"/>
+        <Grid Height="3000" Background="Beige" />
     </TK:TK_ScrollViewer>
 </UserControl>

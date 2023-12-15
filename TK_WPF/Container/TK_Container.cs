@@ -207,6 +207,7 @@ namespace TK_WPF
         /// <param name="win"></param>
         internal void RemoveCenter(object win)
         {
+            this.TK_Container_SizeChanged(this, null);
             centerContent.Content = null;
         }
     }

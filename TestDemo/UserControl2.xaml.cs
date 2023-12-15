@@ -24,5 +24,10 @@ namespace TestDemo
         {
             InitializeComponent();
         }
+
+        private async void TK_Button_Click(object sender, RoutedEventArgs e)
+        {
+            await TK_WPF.TK_Dialog.Show("MainWindow", new UserControl1());
+        }
     }
 }
