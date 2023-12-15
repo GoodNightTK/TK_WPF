@@ -1,0 +1,103 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:CV="clr-namespace:TK_WPF.Convert"
+    xmlns:TK="clr-namespace:TK_WPF">
+
+    <CV:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter" />
+
+
+    <Style TargetType="TK:TK_TextBox">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Background" Value="#fefeff" />
+        <Setter Property="Foreground" Value="#1f1f1f" />
+        <Setter Property="MouseOverBorBrush" Value="#2196F3" />
+        <Setter Property="BorderBrush" Value="#9E9E9E" />
+        <Setter Property="Cursor" Value="IBeam" />
+        <Setter Property="Corner" Value="3" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TK:TK_TextBox">
+                    <Border
+                        Name="Border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="1.5"
+                        CornerRadius="{TemplateBinding Corner}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ContentControl
+                                Name="First"
+                                Grid.Column="0"
+                                Margin="2,0,2,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Content="{TemplateBinding FirstContent}" />
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                BorderThickness="0"
+                                FontSize="{TemplateBinding FontSize}"
+                                Visibility="Visible" />
+                            <TextBlock
+                                Name="Mark"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                FontSize="{TemplateBinding FontSize}"
+                                Foreground="#424242"
+                                Text="{TemplateBinding TextMark}"
+                                Visibility="Visible" />
+                            <TK:TK_Button
+                                x:Name="PART_ClearButton"
+                                Grid.Column="2"
+                                Width="{TemplateBinding Height}"
+                                Margin="1"
+                                Background="Transparent"
+                                ButtonShowType="Icon"
+                                FontSize="{TemplateBinding FontSize}"
+                                Icon="Window_Close"
+                                MouseOverBack="AliceBlue"
+                                MouseOverFore="Black"
+                                Visibility="Hidden" />
+                            <ContentControl
+                                Name="Last"
+                                Grid.Column="3"
+                                Margin="2,0,2,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Content="{TemplateBinding LastContent}" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="Border" Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{Binding Path=MouseOverBorBrush, RelativeSource={RelativeSource AncestorType=TK:TK_TextBox, Mode=FindAncestor}}" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition SourceName="Border" Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsReadOnly" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_ClearButton" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{Binding Path=MouseOverBorBrush, RelativeSource={RelativeSource AncestorType=TK:TK_TextBox, Mode=FindAncestor}}" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding Path=Text, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource IsNullOrEmptyConverter}}" Value="False">
+                            <Setter TargetName="Mark" Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

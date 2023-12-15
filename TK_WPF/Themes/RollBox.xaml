@@ -1,0 +1,101 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:TK="clr-namespace:TK_WPF">
+
+
+    <Style x:Key="ListBoxItemContainerStyle1" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Padding" Value="4,1" />
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border
+                        x:Name="Bd"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Opacity="0.7"
+                        SnapsToDevicePixels="true">
+                        <Ellipse
+                            x:Name="ep"
+                            Width="12"
+                            Height="12"
+                            Fill="LightGray" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ep" Property="Fill" Value="GRAY" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ItemsPanelTemplate x:Key="ListBoxItemsPanel1">
+        <StackPanel Orientation="Horizontal" />
+    </ItemsPanelTemplate>
+
+    <Style TargetType="TK:TK_RollBox">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="AutoRoll" Value="True" />
+        <Setter Property="DelayTime" Value="5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TK:TK_RollBox">
+                    <Grid ClipToBounds="True">
+                        <ContentControl x:Name="PART_NEXT_Content" />
+                        <ContentControl x:Name="PART_CURR_Content" />
+
+                        <TK:TK_Button
+                            x:Name="PART_LeftButton"
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Background="LightGray"
+                            ButtonShowType="Icon"
+                            Corner="3"
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="White"
+                            Icon="ScrollBar_Left"
+                            MouseOverBack="LightGray"
+                            MouseOverFore="White"
+                            Opacity="0" />
+                        <TK:TK_Button
+                            x:Name="PART_RightButton"
+                            Margin="0,0,5,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Background="LightGray"
+                            ButtonShowType="Icon"
+                            Corner="3"
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="White"
+                            Icon="ScrollBar_Right"
+                            MouseOverBack="LightGray"
+                            MouseOverFore="White"
+                            Opacity="0" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_LeftButton" Property="Opacity" Value="0.5" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_RightButton" Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

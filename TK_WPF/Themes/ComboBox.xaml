@@ -1,0 +1,256 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:CV="clr-namespace:TK_WPF.Convert"
+    xmlns:TK="clr-namespace:TK_WPF">
+
+    <CV:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter" />
+
+    <Style x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border Name="Border" Background="Transparent">
+                        <TK:TK_Icon
+                            x:Name="Icon"
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="#9E9E9E"
+                            IconCode="ScrollBar_Down"
+                            RenderTransformOrigin="0.5,0.5">
+                            <TK:TK_Icon.RenderTransform>
+                                <RotateTransform x:Name="RunStory" Angle="0" />
+                            </TK:TK_Icon.RenderTransform>
+                        </TK:TK_Icon>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <!--<Setter TargetName="Icon" Property="Text" Value="&#xe603;"/>-->
+                            <Setter TargetName="Icon" Property="Foreground" Value="{Binding Path=MouseOverBorBrush, RelativeSource={RelativeSource AncestorType=TK:TK_ComboBox, Mode=FindAncestor}}" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="RunStory"
+                                            Storyboard.TargetProperty="Angle"
+                                            To="180"
+                                            Duration="0:0:0.25">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="RunStory"
+                                            Storyboard.TargetProperty="Angle"
+                                            To="0"
+                                            Duration="0:0:0.25">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Icon" Property="Foreground" Value="{Binding Path=MouseOverBorBrush, RelativeSource={RelativeSource AncestorType=TK:TK_ComboBox, Mode=FindAncestor}}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="TK:TK_ComboBox">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="MinHeight" Value="30" />
+        <Setter Property="MinWidth" Value="100" />
+        <Setter Property="Background" Value="#fefeff" />
+        <Setter Property="Foreground" Value="#1f1f1f" />
+        <Setter Property="MouseOverBorBrush" Value="#2196F3" />
+        <Setter Property="BorderBrush" Value="#9E9E9E" />
+        <Setter Property="Corner" Value="3" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                    <Setter Property="Cursor" Value="Hand" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                                <Grid>
+                                    <Border
+                                        Name="Border"
+                                        Height="{Binding Path=Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TK:TK_ComboBox}}"
+                                        MaxWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TK:TK_ComboBox}}"
+                                        Margin="1"
+                                        Background="{TemplateBinding Background}"
+                                        BorderThickness="0"
+                                        CornerRadius="{Binding Path=Corner, RelativeSource={RelativeSource AncestorType=TK:TK_ComboBox, Mode=FindAncestor}}">
+                                        <ContentPresenter
+                                            x:Name="_txt"
+                                            Margin="3"
+                                            VerticalAlignment="Center" />
+                                        <!--  Content="{Binding Content,RelativeSource={RelativeSource TemplatedParent}}"  -->
+                                    </Border>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="true">
+                                        <Setter TargetName="Border" Property="Background" Value="{Binding Path=MouseOverBorBrush, RelativeSource={RelativeSource AncestorType=TK:TK_ComboBox, Mode=FindAncestor}}" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="{Binding Path=MouseOverBorBrush, RelativeSource={RelativeSource AncestorType=TK:TK_ComboBox, Mode=FindAncestor}}" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="MaxDropDownHeight" Value="400" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TK:TK_ComboBox">
+                    <Border
+                        Name="Border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="1.5"
+                        CornerRadius="{TemplateBinding Corner}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ContentControl
+                                Name="First"
+                                Grid.Column="0"
+                                Margin="2,0,2,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Content="{TemplateBinding FirstContent}" />
+                            <Grid Grid.Column="1">
+                                <ContentPresenter
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding SelectionBoxItem}"
+                                    ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
+                                    ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                    ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                    IsHitTestVisible="false"
+                                    SnapsToDevicePixels="True" />
+                                <TextBlock
+                                    Name="Mark"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    Foreground="#424242"
+                                    Text="{TemplateBinding TextMark}"
+                                    Visibility="Hidden" />
+                            </Grid>
+                            <TK:TK_Button
+                                x:Name="PART_ClearButton"
+                                Grid.Column="2"
+                                Margin="1"
+                                Background="Transparent"
+                                ButtonShowType="Icon"
+                                FontSize="{TemplateBinding FontSize}"
+                                Icon="Window_Close"
+                                MouseOverBack="AliceBlue"
+                                MouseOverFore="Black"
+                                Visibility="Hidden" />
+                            <ToggleButton
+                                x:Name="toggleButton"
+                                Grid.Column="3"
+                                Margin="0,0,3,0"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                FontSize="{TemplateBinding FontSize}"
+                                IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                Style="{StaticResource ComboBoxToggleButton}" />
+                            <ContentControl
+                                Name="Last"
+                                Grid.Column="4"
+                                Margin="2,0,2,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Content="{TemplateBinding LastContent}" />
+
+                            <Popup
+                                x:Name="PART_Popup"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="4"
+                                MinWidth="{TemplateBinding ActualWidth}"
+                                MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                AllowsTransparency="True"
+                                HorizontalOffset="-5"
+                                IsHitTestVisible="False"
+                                IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                Placement="Bottom"
+                                PopupAnimation="Fade"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                                <Grid>
+                                    <Border
+                                        x:Name="dropDownBorder"
+                                        Margin="5"
+                                        Background="{TemplateBinding Background}"
+                                        CornerRadius="{Binding Path=Corner, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TK:TK_ComboBox}}">
+                                        <ScrollViewer x:Name="DropDownScrollViewer" Margin="5,10">
+                                            <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
+                                                <ItemsPresenter
+                                                    x:Name="ItemsPresenter"
+                                                    KeyboardNavigation.DirectionalNavigation="Contained"
+                                                    OverridesDefaultStyle="True"
+                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                            </Grid>
+                                        </ScrollViewer>
+                                        <Border.Effect>
+                                            <DropShadowEffect
+                                                BlurRadius="5"
+                                                Direction="0"
+                                                Opacity="0.7"
+                                                ShadowDepth="0"
+                                                Color="#BDBDBD" />
+                                        </Border.Effect>
+                                    </Border>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{Binding Path=MouseOverBorBrush, RelativeSource={RelativeSource AncestorType=TK:TK_ComboBox, Mode=FindAncestor}}" />
+                            <Setter TargetName="PART_ClearButton" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{Binding Path=MouseOverBorBrush, RelativeSource={RelativeSource AncestorType=TK:TK_ComboBox, Mode=FindAncestor}}" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding Path=SelectedIndex, RelativeSource={RelativeSource Mode=Self}}" Value="-1">
+                            <Setter TargetName="Mark" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

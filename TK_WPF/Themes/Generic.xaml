@@ -1,0 +1,37 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TK_WPF">
+
+
+
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/Button.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/TextBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/PassWordBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/CheckBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/ComboBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/RadioButton.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/ToggleButton.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/TabControl.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/ProgressBar.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/NumberTextBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Message/MessageCard.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Notification/NotificationCard.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/MessageBox/MessageBoxCard.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Container/Container.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Menu/HamburgerMenu.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Menu/MainMenu.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Loading/LoadingCard.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Window/Window.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/RepeatButton.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/ZoomBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Dialog/DialogCard.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Icon/Icon.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/Transition.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/ScrollViewer.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/RollBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/TK_WPF;component/Themes/DataGrid.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

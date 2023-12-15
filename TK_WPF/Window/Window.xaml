@@ -1,0 +1,382 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:CV="clr-namespace:TK_WPF.Convert"
+    xmlns:TK="clr-namespace:TK_WPF">
+
+
+    <CV:BoolToVisibilityConvert x:Key="BoolToVisibilityConvert" />
+    <CV:MenuDoubleToGridSize x:Key="MenuDoubleToGridSize" />
+
+    <Style TargetType="TK:TK_Window">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="#2196F3" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="ResizeMode" Value="CanResizeWithGrip" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="WindowStyle" Value="SingleBorderWindow" />
+        <Setter Property="TitleShadow" Value="False" />
+        <Setter Property="TitleHeight" Value="32" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="TitleBarContent" Value="{x:Null}" />
+        <Setter Property="TitleForeground" Value="White" />
+        <Setter Property="InactiveBorderBrush" Value="#2196F3" />
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome
+                    CaptionHeight="{Binding TitleHeight, RelativeSource={RelativeSource AncestorType=TK:TK_Window}}"
+                    CornerRadius="0"
+                    GlassFrameThickness="1"
+                    NonClientFrameEdges="None"
+                    UseAeroCaptionButtons="False" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TK:TK_Window">
+                    <Border
+                        x:Name="WindowBorder"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid x:Name="LayoutRoot" Background="{TemplateBinding Background}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="{TemplateBinding TitleHeight, Converter={StaticResource MenuDoubleToGridSize}}" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid
+                                x:Name="PART_WindowTitleGrid"
+                                Grid.Row="0"
+                                Height="Auto"
+                                Background="{TemplateBinding BorderBrush}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border
+                                    Grid.ColumnSpan="2"
+                                    Background="{TemplateBinding BorderBrush}"
+                                    Visibility="{TemplateBinding TitleShadow,
+                                                                 Converter={StaticResource BoolToVisibilityConvert}}">
+                                    <Border.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="6"
+                                            Direction="-90"
+                                            Opacity="0.7"
+                                            ShadowDepth="2"
+                                            Color="#BDBDBD" />
+                                    </Border.Effect>
+                                </Border>
+                                <!--  默认 window 的左边内容：图标 + 标题  -->
+                                <Grid
+                                    Grid.Column="0"
+                                    Margin="2,0"
+                                    TextBlock.Foreground="{TemplateBinding TitleForeground}">
+                                    <StackPanel
+                                        x:Name="defalutTitle"
+                                        Orientation="Horizontal"
+                                        Visibility="Collapsed">
+                                        <Image
+                                            x:Name="icon"
+                                            Width="22"
+                                            Height="22"
+                                            Margin="10,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Source="{TemplateBinding Icon}" />
+                                        <TextBlock
+                                            Margin="10,0,0,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="13"
+                                            Text="{TemplateBinding Title}" />
+                                    </StackPanel>
+                                    <ContentControl
+                                        x:Name="preContent"
+                                        VerticalAlignment="Center"
+                                        Content="{TemplateBinding TitleBarContent}"
+                                        WindowChrome.IsHitTestVisibleInChrome="True" />
+                                </Grid>
+
+                                <!--  标题栏右边按钮  -->
+                                <StackPanel
+                                    x:Name="WindowCommandButtonsStackPanel"
+                                    Grid.Column="1"
+                                    Margin="0,0,5,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Orientation="Horizontal"
+                                    WindowChrome.IsHitTestVisibleInChrome="True">
+                                    <TK:TK_Button
+                                        x:Name="Expand"
+                                        Background="Transparent"
+                                        ButtonShowType="Icon"
+                                        Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
+                                        CommandParameter="1"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        Icon="Window_Full"
+                                        IsTabStop="False"
+                                        MouseOverBack="#e4e4e6"
+                                        MouseOverFore="Black"
+                                        WindowChrome.IsHitTestVisibleInChrome="True" />
+                                    <TK:TK_Button
+                                        x:Name="Minimize"
+                                        Background="Transparent"
+                                        ButtonShowType="Icon"
+                                        Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        Icon="Window_Min"
+                                        IsTabStop="False"
+                                        MouseOverBack="#e4e4e6"
+                                        MouseOverFore="Black"
+                                        WindowChrome.IsHitTestVisibleInChrome="True" />
+                                    <TK:TK_Button
+                                        x:Name="Restore"
+                                        Background="Transparent"
+                                        ButtonShowType="Icon"
+                                        Command="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        Icon="Window_Restore"
+                                        IsTabStop="False"
+                                        MouseOverBack="#e4e4e6"
+                                        MouseOverFore="Black"
+                                        Visibility="Collapsed"
+                                        WindowChrome.IsHitTestVisibleInChrome="True" />
+                                    <TK:TK_Button
+                                        x:Name="Maximize"
+                                        Background="Transparent"
+                                        ButtonShowType="Icon"
+                                        Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
+                                        CommandParameter="0"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        Icon="Window_Max"
+                                        IsTabStop="False"
+                                        MouseOverBack="#e4e4e6"
+                                        MouseOverFore="Black"
+                                        WindowChrome.IsHitTestVisibleInChrome="True" />
+                                    <TK:TK_Button
+                                        x:Name="Close"
+                                        Background="Transparent"
+                                        ButtonShowType="Icon"
+                                        Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        Icon="Window_Close"
+                                        IsTabStop="False"
+                                        MouseOverBack="#E63935"
+                                        MouseOverFore="White"
+                                        WindowChrome.IsHitTestVisibleInChrome="True" />
+                                </StackPanel>
+                            </Grid>
+
+                            <AdornerDecorator Grid.Row="1" KeyboardNavigation.IsTabStop="False">
+                                <TK:TK_Container Identifier="{TemplateBinding Title}">
+                                    <ContentPresenter x:Name="MainContentPresenter" KeyboardNavigation.TabNavigation="Cycle" />
+                                </TK:TK_Container>
+                            </AdornerDecorator>
+
+                            <ResizeGrip
+                                x:Name="ResizeGrip"
+                                Grid.Row="1"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                IsTabStop="False"
+                                Visibility="Hidden"
+                                WindowChrome.ResizeGripDirection="BottomRight" />
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsActive" Value="False">
+                            <Setter Property="BorderBrush" Value="{Binding InactiveBorderBrush, RelativeSource={RelativeSource Self}}" />
+                        </Trigger>
+                        <Trigger Property="WindowState" Value="Maximized">
+                            <Setter TargetName="LayoutRoot" Property="Margin" Value="7" />
+                            <Setter TargetName="Maximize" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Restore" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Expand" Property="Visibility" Value="Hidden" />
+                        </Trigger>
+                        <Trigger Property="WindowState" Value="Normal">
+                            <Setter TargetName="Maximize" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Restore" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Expand" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="ResizeMode" Value="NoResize">
+                            <Setter TargetName="Maximize" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Minimize" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Restore" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Expand" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="ResizeMode" Value="CanMinimize">
+                            <Setter TargetName="Maximize" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Minimize" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Restore" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Expand" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ResizeMode" Value="CanResizeWithGrip" />
+                                <Condition Property="WindowState" Value="Normal" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ResizeGrip" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                        <Trigger Property="TitleBarContent" Value="{x:Null}">
+                            <Setter TargetName="defalutTitle" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="Icon" Value="{x:Null}">
+                            <Setter TargetName="icon" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="TK:TK_MainWindow">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="BorderBrush" Value="#2196F3" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="ResizeMode" Value="CanResizeWithGrip" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="WindowStyle" Value="SingleBorderWindow" />
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome
+                    GlassFrameThickness="-1"
+                    NonClientFrameEdges="None"
+                    UseAeroCaptionButtons="False" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TK:TK_MainWindow">
+                    <Border
+                        x:Name="WindowBorder"
+                        Background="White"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid Name="LayoutRoot">
+                            <AdornerDecorator Grid.Row="1" KeyboardNavigation.IsTabStop="False">
+                                <TK:TK_Container Identifier="{TemplateBinding Title}">
+                                    <Grid>
+                                        <ContentPresenter x:Name="MainContentPresenter" KeyboardNavigation.TabNavigation="Cycle" />
+
+                                        <StackPanel
+                                            Margin="5"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Top"
+                                            Orientation="Horizontal">
+                                            <TK:TK_Button
+                                                x:Name="Expand"
+                                                Background="Transparent"
+                                                ButtonShowType="Icon"
+                                                Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
+                                                CommandParameter="1"
+                                                FontSize="{TemplateBinding FontSize}"
+                                                Icon="Window_Full"
+                                                IsTabStop="False"
+                                                MouseOverBack="#e4e4e6"
+                                                MouseOverFore="Black"
+                                                WindowChrome.IsHitTestVisibleInChrome="True" />
+                                            <TK:TK_Button
+                                                x:Name="Minimize"
+                                                Background="Transparent"
+                                                ButtonShowType="Icon"
+                                                Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
+                                                FontSize="{TemplateBinding FontSize}"
+                                                Icon="Window_Min"
+                                                IsTabStop="False"
+                                                MouseOverBack="#e4e4e6"
+                                                MouseOverFore="Black"
+                                                WindowChrome.IsHitTestVisibleInChrome="True" />
+                                            <TK:TK_Button
+                                                x:Name="Restore"
+                                                Background="Transparent"
+                                                ButtonShowType="Icon"
+                                                Command="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}"
+                                                FontSize="{TemplateBinding FontSize}"
+                                                Icon="Window_Restore"
+                                                IsTabStop="False"
+                                                MouseOverBack="#e4e4e6"
+                                                MouseOverFore="Black"
+                                                Visibility="Collapsed"
+                                                WindowChrome.IsHitTestVisibleInChrome="True" />
+                                            <TK:TK_Button
+                                                x:Name="Maximize"
+                                                Background="Transparent"
+                                                ButtonShowType="Icon"
+                                                Command="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}"
+                                                CommandParameter="0"
+                                                FontSize="{TemplateBinding FontSize}"
+                                                Icon="Window_Max"
+                                                IsTabStop="False"
+                                                MouseOverBack="#e4e4e6"
+                                                MouseOverFore="Black"
+                                                WindowChrome.IsHitTestVisibleInChrome="True" />
+                                            <TK:TK_Button
+                                                x:Name="Close"
+                                                Background="Transparent"
+                                                ButtonShowType="Icon"
+                                                Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
+                                                FontSize="{TemplateBinding FontSize}"
+                                                Icon="Window_Close"
+                                                IsTabStop="False"
+                                                MouseOverBack="#E63935"
+                                                MouseOverFore="White"
+                                                WindowChrome.IsHitTestVisibleInChrome="True" />
+                                        </StackPanel>
+                                    </Grid>
+                                </TK:TK_Container>
+                            </AdornerDecorator>
+                            <ResizeGrip
+                                x:Name="ResizeGrip"
+                                Grid.Row="1"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                IsTabStop="False"
+                                Visibility="Hidden"
+                                WindowChrome.ResizeGripDirection="BottomRight" />
+
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="WindowState" Value="Maximized">
+                            <Setter TargetName="LayoutRoot" Property="Margin" Value="7" />
+                            <Setter TargetName="Maximize" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Restore" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Expand" Property="Visibility" Value="Hidden" />
+                        </Trigger>
+                        <Trigger Property="WindowState" Value="Normal">
+                            <Setter TargetName="Maximize" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Restore" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Expand" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="ResizeMode" Value="NoResize">
+                            <Setter TargetName="Maximize" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Minimize" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Restore" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Expand" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="ResizeMode" Value="CanMinimize">
+                            <Setter TargetName="Maximize" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Minimize" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Restore" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="Expand" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ResizeMode" Value="CanResizeWithGrip" />
+                                <Condition Property="WindowState" Value="Normal" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ResizeGrip" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
