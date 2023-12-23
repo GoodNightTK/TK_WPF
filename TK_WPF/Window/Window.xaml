@@ -266,11 +266,10 @@
                                         <ContentPresenter x:Name="MainContentPresenter" KeyboardNavigation.TabNavigation="Cycle" />
                                         <Border
                                             Name="Border"
-                                            Margin="0,3,0,0"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Top"
                                             Background="#DBDBDB"
-                                            CornerRadius="5"
+                                            CornerRadius="0,0,5,5"
                                             RenderTransformOrigin="0.5,0"
                                             WindowChrome.IsHitTestVisibleInChrome="True">
                                             <StackPanel Orientation="Horizontal" RenderTransformOrigin="0.5,0.5">
@@ -399,16 +398,16 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory" Storyboard.TargetProperty="ScaleY">
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="0.3" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.3" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1">
                                                 <EasingDoubleKeyFrame.EasingFunction>
                                                     <CubicEase EasingMode="EaseOut" />
                                                 </EasingDoubleKeyFrame.EasingFunction>
                                             </EasingDoubleKeyFrame>
                                         </DoubleAnimationUsingKeyFrames>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory1" Storyboard.TargetProperty="Y">
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="-400" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="-400" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0">
                                                 <EasingDoubleKeyFrame.EasingFunction>
                                                     <CubicEase EasingMode="EaseOut" />
                                                 </EasingDoubleKeyFrame.EasingFunction>
@@ -421,16 +420,16 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory" Storyboard.TargetProperty="ScaleY">
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="1" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.3">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.3">
                                                 <EasingDoubleKeyFrame.EasingFunction>
                                                     <CubicEase EasingMode="EaseOut" />
                                                 </EasingDoubleKeyFrame.EasingFunction>
                                             </EasingDoubleKeyFrame>
                                         </DoubleAnimationUsingKeyFrames>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory1" Storyboard.TargetProperty="Y">
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="0" />
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-400">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-400">
                                                 <EasingDoubleKeyFrame.EasingFunction>
                                                     <CubicEase EasingMode="EaseOut" />
                                                 </EasingDoubleKeyFrame.EasingFunction>

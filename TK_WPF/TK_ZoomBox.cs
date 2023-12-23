@@ -60,68 +60,17 @@ namespace TK_WPF
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            this.SizeChanged += TK_ZoomBox_SizeChanged;
             if (GetTemplateChild(contentName) is ContentPresenter content)
             {
                 this.content = content;
             }
             if (GetTemplateChild(buttonName) is ToggleButton button)
             {
-                button.Checked += Button_Checked;
-                button.Unchecked += Button_Unchecked;
+               
             }
-        }
-
-        private void Button_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (CanExpander)
+            if(!this.CanExpander)
             {
-                this.content.Tag = this.content.ActualHeight;
-                Storyboard begin = new Storyboard();
-                DoubleAnimation height = new DoubleAnimation()
-                {
-                    From = (double)this.content.Tag,
-                    To = 0,
-                    Duration = new Duration(TimeSpan.FromMilliseconds(300)),
-                    EasingFunction = new CubicEase { EasingMode = EasingMode.EaseInOut }
-                };
-                Storyboard.SetTargetName(height, this.content.Name);
-                Storyboard.SetTargetProperty(height, new PropertyPath("Height"));
-                begin.Children.Add(height);
-                this.content.BeginStoryboard(begin);
-            }
-        }
-
-        private void Button_Checked(object sender, RoutedEventArgs e)
-        {
-            Storyboard begin = new Storyboard();
-            DoubleAnimation height = new DoubleAnimation()
-            {
-                From = 0,
-                To = (double)this.content.Tag,
-                Duration = new Duration(TimeSpan.FromMilliseconds(300)),
-                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseInOut }
-            };
-            Storyboard.SetTargetName(height, this.content.Name);
-            Storyboard.SetTargetProperty(height, new PropertyPath("Height"));
-            begin.Children.Add(height);
-            this.content.BeginStoryboard(begin);
-        }
-
-        private void TK_ZoomBox_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (sender is TK_ZoomBox box)
-            {
-                box.content.Tag = box.content.ActualHeight;
-                if (box.IsOpen)
-                {
-                    this.Button_Checked(null, null);
-                }
-                else
-                {
-                    this.Button_Unchecked(null, null);
-                }
-                this.SizeChanged -= TK_ZoomBox_SizeChanged;
+                this.IsOpen = true;
             }
         }
 
@@ -202,6 +151,20 @@ namespace TK_WPF
             DependencyProperty.Register("IsOpen", typeof(bool), typeof(TK_ZoomBox), new PropertyMetadata(true));
 
 
+
+
+        /// <summary>
+        /// 上方内容
+        /// </summary>
+        public object TopContent
+        {
+            get { return (object)GetValue(TopContentProperty); }
+            set { SetValue(TopContentProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TopContent.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TopContentProperty =
+            DependencyProperty.Register("TopContent", typeof(object), typeof(TK_ZoomBox), new PropertyMetadata());
 
 
 

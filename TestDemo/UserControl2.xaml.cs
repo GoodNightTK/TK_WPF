@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,7 +28,17 @@ namespace TestDemo
 
         private async void TK_Button_Click(object sender, RoutedEventArgs e)
         {
-            await TK_WPF.TK_Dialog.Show("MainWindow", new UserControl1());
+            //await TK_WPF.TK_Dialog.Show("MainWindow", new UserControl1());
+            string mm = await TK_WPF.TK_Loading.Card<string, string>("MainWindow",  this.load, "测试");
+
+            MessageBox.Show(mm);
+        }
+
+        private async Task<string> load(string arg)
+        {
+            Thread.Sleep(5000);
+            Console.WriteLine(arg);
+            return arg;
         }
     }
 }

@@ -47,22 +47,14 @@ namespace TK_WPF
     /// </summary>
     [TemplatePart(Name = CloseButtonPartName, Type = typeof(TK_Button))]
     [TemplatePart(Name = BackgroundBorderPartName, Type = typeof(Border))]
-    [TemplatePart(Name =ContentName,Type =(typeof(ContentControl)))]
-    [TemplatePart(Name =TitleName,Type =(typeof(Border)))]
+    [TemplatePart(Name = ContentName, Type = (typeof(ContentControl)))]
+    [TemplatePart(Name = TitleName, Type = (typeof(Border)))]
     public class TK_DialogCard : ContentControl
     {
         static TK_DialogCard()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TK_DialogCard), new FrameworkPropertyMetadata(typeof(TK_DialogCard)));
         }
-        public TK_DialogCard()
-        {
-            this.Initialized += (s, e) =>
-            {
-
-            };
-        }
-
 
         /// <summary>
         /// 转换动画名称
@@ -94,21 +86,7 @@ namespace TK_WPF
             {
                 CloseHandler?.Invoke(null);
             };
-            if (GetTemplateChild(TitleName) is Border border)
-            {
-                if (GetTemplateChild(ContentName) is ContentControl content)
-                {
-                    this.ContentControl = content;
-                    if (this.DialogContent != null && this.DialogContent is ContentControl dialogContent)
-                    {
-                        this.Width = dialogContent.Width+10;
-                        this.Height = dialogContent.Height + 60;
-                    }
-                }
-            }
-            
         }
-
         #region 依赖属性
         /// <summary>
         /// 对话框内容

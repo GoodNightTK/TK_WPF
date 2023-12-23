@@ -11,73 +11,124 @@ namespace TK_WPF
 {
     public class TK_Loading
     {
-        private static async Task<bool> Loading(string identifier, LoadType type, Func<Task> action)
+        private static async Task<T2> Loading<T1, T2>(string identifier, LoadType type, Func<T1, T2> action, T1 value)
         {
-            TaskCompletionSource<bool> result = new TaskCompletionSource<bool>();
             if (!TK_Message.Containers.ContainsKey(identifier))
             {
-                result.SetResult(false);
-                return await result.Task;
+                return default;
             }
             TK_Container container;
-            if (TK_Message.Containers.TryGetValue(identifier, out container)&&!container.IsBusy)
+            if (TK_Message.Containers.TryGetValue(identifier, out container) && !container.IsBusy)
             {
+                T2 result = default;
                 container.IsBusy = true;
                 container.Dispatcher.VerifyAccess();
                 TK_LoadingCard card = new TK_LoadingCard()
                 {
                     LoadType = type,
                     IsEnabled = true,
-                    Width = 150
                 };
                 container.AddCenter(card);
 
                 card.ShowLoading = true;
                 if (action != null)
                 {
-                    await Task.Run(async () =>
-                    {
-                        await action();
-                        await Task.Delay(1000);
-                        return true;
-                    });
+                    result = await Task.Run(async () =>
+                     {
+                         var res = action(value);
+                         await Task.Delay(1000);
+                         return res;
+                     });
                     await Task.Delay(100);
-                    result.TrySetResult(true);
                 }
-                else
-                {
-                    result.TrySetResult(false);
-                }
-                await result.Task;
                 container.IsBusy = false;
                 card.ShowLoading = false;
-                return true;
+                return result;
             }
             else
             {
-                result.SetResult(false);
-                return await result.Task;
+                return default;
             }
         }
 
-        public async static Task<bool> Card(string identifier, Func<Task> action)
+        private static async Task<T2> Loading<T1, T2>(string identifier, LoadType type, Func<T1, Task<T2>> action, T1 value)
         {
-            return await Loading(identifier, LoadType.Card, action);
+            if (!TK_Message.Containers.ContainsKey(identifier))
+            {
+                return default;
+            }
+            TK_Container container;
+            if (TK_Message.Containers.TryGetValue(identifier, out container) && !container.IsBusy)
+            {
+                T2 result = default;
+                container.IsBusy = true;
+                container.Dispatcher.VerifyAccess();
+                TK_LoadingCard card = new TK_LoadingCard()
+                {
+                    LoadType = type,
+                    IsEnabled = true,
+                };
+                container.AddCenter(card);
+
+                card.ShowLoading = true;
+                if (action != null)
+                {
+                    result = await Task.Run(async () =>
+                    {
+                        var res = await action(value);
+                        await Task.Delay(1000);
+                        return res;
+                    });
+                    await Task.Delay(100);
+                }
+                container.IsBusy = false;
+                card.ShowLoading = false;
+                return result;
+            }
+            else
+            {
+                return default;
+            }
         }
 
-        public async static Task<bool> Rotary(string identifier, Func<Task> action)
+        public async static Task<T2> Card<T1,T2>(string identifier, Func<T1,T2> action,T1 value)
         {
-            return await Loading(identifier, LoadType.Rotary, action);
+            return await Loading(identifier, LoadType.Card, action,value);
         }
 
-        public async static Task<bool> Marquee(string identifier, Func<Task> action)
+        public async static Task<T2> Card<T1,T2>(string identifier, Func<T1,Task<T2>> action,T1 value)
         {
-            return await Loading(identifier, LoadType.Marquee, action);
+            return await Loading(identifier, LoadType.Card, action, value);
         }
 
-        public async static Task<bool> Wave(string identifier, Func<Task> action)
+        public async static Task<T2> Rotary<T1,T2>(string identifier, Func<T1,T2> action,T1 value)
         {
-            return await Loading(identifier, LoadType.Wave, action);
+            return await Loading(identifier, LoadType.Rotary, action,value);
+        }
+
+        public async static Task<T2> Rotary<T1,T2>(string identifier, Func<T1,Task<T2>> action,T1 value)
+        {
+            return await Loading(identifier, LoadType.Rotary, action, value);
+        }
+
+        public async static Task<T2> Marquee<T1, T2>(string identifier, Func<T1, T2> action, T1 value)
+        {
+            return await Loading(identifier, LoadType.Rotary, action, value);
+        }
+
+        public async static Task<T2> Marquee<T1, T2>(string identifier, Func<T1, Task<T2>> action, T1 value)
+        {
+            return await Loading(identifier, LoadType.Rotary, action, value);
+        }
+
+        public async static Task<T2> Wave<T1, T2>(string identifier, Func<T1, T2> action, T1 value)
+        {
+            return await Loading(identifier, LoadType.Rotary, action, value);
+        }
+
+        public async static Task<T2> Wave<T1, T2>(string identifier, Func<T1, Task<T2>> action, T1 value)
+        {
+            return await Loading(identifier, LoadType.Rotary, action, value);
         }
     }
 }

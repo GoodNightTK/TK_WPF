@@ -72,6 +72,9 @@
         <Setter Property="IsOpen" Value="True" />
         <Setter Property="Margin" Value="5" />
         <Setter Property="CanExpander" Value="True" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontSize" Value="20" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TK:TK_ZoomBox">
@@ -80,78 +83,90 @@
                         BorderBrush="Transparent"
                         BorderThickness="0"
                         CornerRadius="{TemplateBinding CornerRadius}">
-                        <StackPanel Orientation="Vertical">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TK:TK_Icon
-                                    x:Name="Icon"
-                                    Grid.RowSpan="2"
-                                    Grid.Column="0"
-                                    Margin="15"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    HorizontalContentAlignment="Center"
-                                    VerticalContentAlignment="Center"
-                                    FontSize="{TemplateBinding FontSize}"
-                                    Foreground="{TemplateBinding Foreground}"
-                                    IconBase="{TemplateBinding IconBase}"
-                                    IconCode="{TemplateBinding Icon}" />
-                                <ContentControl
-                                    x:Name="Header"
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    Margin="10,10,10,0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    HorizontalContentAlignment="Center"
-                                    VerticalContentAlignment="Center"
-                                    Content="{TemplateBinding Header}"
-                                    DockPanel.Dock="Top"
-                                    FontFamily="{TemplateBinding FontFamily}"
-                                    FontSize="{TemplateBinding FontSize}"
-                                    FontWeight="Bold"
-                                    Foreground="{TemplateBinding Foreground}" />
-                                <ContentControl
-                                    x:Name="Title"
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    Margin="10,0,0,0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    HorizontalContentAlignment="Center"
-                                    VerticalContentAlignment="Center"
-                                    Content="{TemplateBinding Title}"
-                                    DockPanel.Dock="Bottom"
-                                    FontFamily="{TemplateBinding FontFamily}"
-                                    FontSize="{TemplateBinding FontSize}"
-                                    FontWeight="UltraLight"
-                                    Foreground="{TemplateBinding Foreground}" />
-                                <ToggleButton
-                                    Name="PART_Button"
-                                    Grid.RowSpan="2"
-                                    Grid.Column="2"
-                                    Margin="15"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    DockPanel.Dock="Right"
-                                    FontSize="20"
-                                    IsChecked="{Binding Path=IsOpen, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=TK:TK_ZoomBox, Mode=FindAncestor}}"
-                                    Style="{StaticResource ExpanderToggleButton}"
-                                    Visibility="{Binding Path=CanExpander, RelativeSource={RelativeSource AncestorType=TK:TK_ZoomBox, Mode=FindAncestor}, Converter={StaticResource BoolToVisibilityConvert}}" />
-                            </Grid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition Name="RunGrid" Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TK:TK_Icon
+                                x:Name="Icon"
+                                Grid.RowSpan="2"
+                                Grid.Column="0"
+                                Margin="15"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                FontSize="{TemplateBinding FontSize}"
+                                Foreground="{TemplateBinding Foreground}"
+                                IconBase="{TemplateBinding IconBase}"
+                                IconCode="{TemplateBinding Icon}" />
+                            <ContentControl
+                                x:Name="Header"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="10,10,10,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Content="{TemplateBinding Header}"
+                                DockPanel.Dock="Top"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontWeight="Bold"
+                                Foreground="{TemplateBinding Foreground}" />
+                            <ContentControl
+                                x:Name="Title"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="10,5,10,10"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Content="{TemplateBinding Title}"
+                                DockPanel.Dock="Bottom"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontWeight="UltraLight"
+                                Foreground="{TemplateBinding Foreground}" />
+                            <ContentPresenter
+                                Grid.RowSpan="2"
+                                Grid.Column="2"
+                                Margin="5"
+                                Content="{TemplateBinding TopContent}" />
+                            <ToggleButton
+                                Name="PART_Button"
+                                Grid.RowSpan="2"
+                                Grid.Column="3"
+                                Margin="15"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                DockPanel.Dock="Right"
+                                FontSize="20"
+                                IsChecked="{Binding Path=IsOpen, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=TK:TK_ZoomBox, Mode=FindAncestor}}"
+                                Style="{StaticResource ExpanderToggleButton}"
+                                Visibility="{Binding Path=CanExpander, RelativeSource={RelativeSource AncestorType=TK:TK_ZoomBox, Mode=FindAncestor}, Converter={StaticResource BoolToVisibilityConvert}}" />
                             <ContentPresenter
                                 x:Name="PART_Content"
+                                Grid.Row="2"
+                                Grid.ColumnSpan="4"
                                 Margin="10"
-                                Focusable="False" />
-                        </StackPanel>
+                                Focusable="False"
+                                RenderTransformOrigin="0.5,0">
+                                <ContentPresenter.RenderTransform>
+                                    <ScaleTransform x:Name="RunStory" ScaleX="1" ScaleY="1" />
+                                </ContentPresenter.RenderTransform>
+                            </ContentPresenter>
+                        </Grid>
                         <Border.Effect>
                             <DropShadowEffect
                                 BlurRadius="7"
@@ -161,6 +176,64 @@
                                 Color="#BDBDBD" />
                         </Border.Effect>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsOpen" Value="False">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="RunStory"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            From="1"
+                                            To="0"
+                                            Duration="0:0:0.15">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <ObjectAnimationUsingKeyFrames
+                                            BeginTime="0:0:0"
+                                            Storyboard.TargetName="RunGrid"
+                                            Storyboard.TargetProperty="Height"
+                                            Duration="0:0:0.15">
+                                            <DiscreteObjectKeyFrame>
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <GridLength>0</GridLength>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetName="RunStory" Storyboard.TargetProperty="ScaleY">
+                                        <ObjectAnimationUsingKeyFrames
+                                            Storyboard.TargetName="RunGrid"
+                                            Storyboard.TargetProperty="Height"
+                                            Duration="0:0:0">
+                                            <DiscreteObjectKeyFrame>
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <GridLength>Auto</GridLength>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation
+                                            BeginTime="0:0:0"
+                                            Storyboard.TargetName="RunStory"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            From="0"
+                                            To="1"
+                                            Duration="0:0:0.15">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

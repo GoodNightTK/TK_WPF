@@ -16,6 +16,43 @@
     <TK:TK_Container Identifier="测试">
         <StackPanel>
             <TK:TK_Button Click="TK_Button_Click" Content="测试" />
+            <TK:TK_ZoomBox
+                Title="测试11"
+                CanExpander="True"
+                Header="测试"
+                Icon="Card_Question"
+                IsOpen="True">
+                <TK:TK_ZoomBox.TopContent>
+                    <TK:TK_Button />
+                </TK:TK_ZoomBox.TopContent>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Width="50"
+                        Height="100"
+                        Margin="5"
+                        Background="AliceBlue" />
+                </Grid>
+            </TK:TK_ZoomBox>
+            <TK:TK_LoadingCard
+                Width="50"
+                Height="50"
+                LoadType="Card" />
         </StackPanel>
     </TK:TK_Container>
 

@@ -22,6 +22,10 @@
         <Setter Property="Width" Value="Auto" />
         <Setter Property="Height" Value="Auto" />
         <Setter Property="FontSize" Value="25" />
+        <Setter Property="MinHeight" Value="200" />
+        <Setter Property="MinWidth" Value="200" />
+        <Setter Property="MaxHeight" Value="600" />
+        <Setter Property="MaxWidth" Value="600" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TK:TK_DialogCard">
@@ -40,7 +44,6 @@
                                     <TK:TK_Button
                                         x:Name="PART_CloseButton"
                                         Height="Auto"
-                                        Margin="0,5,5,0"
                                         Background="Transparent"
                                         ButtonShowType="Icon"
                                         DockPanel.Dock="Right"
@@ -52,7 +55,6 @@
                                         Visibility="{TemplateBinding ShowCloseButton,
                                                                      Converter={StaticResource BooleanToVisibleConverter}}" />
                                     <TextBlock
-                                        Margin="5,5,5,0"
                                         FontSize="{TemplateBinding FontSize}"
                                         Foreground="Black"
                                         Text="{TemplateBinding Title}" />
@@ -62,7 +64,7 @@
                             <Border x:Name="contentBorder" Grid.Row="1">
                                 <ContentControl
                                     Name="PART_Content"
-                                    Margin="{TemplateBinding Padding}"
+                                    Margin="8,0,8,8"
                                     Content="{TemplateBinding DialogContent}"
                                     Focusable="False"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
