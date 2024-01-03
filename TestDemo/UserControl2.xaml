@@ -52,7 +52,19 @@
             <TK:TK_LoadingCard
                 Width="50"
                 Height="50"
+                LoadType="Wave" />
+            <TK:TK_LoadingCard
+                Width="50"
+                Height="50"
                 LoadType="Card" />
+            <TK:TK_LoadingCard Width="50"
+                               Height="50"
+                               LoadType="Marquee" IsEnabled="True"/>
+            <TK:TK_LoadingCard
+                Width="80"
+                Height="80"
+                IsEnabled="True"
+                LoadType="Rotary" />
         </StackPanel>
     </TK:TK_Container>
 

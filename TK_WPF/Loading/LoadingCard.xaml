@@ -47,116 +47,347 @@
 
     <Style x:Key="Rotary" TargetType="ContentControl">
         <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Height" Value="100" />
-        <Setter Property="Width" Value="100" />
-        <Setter Property="MaxHeight" Value="100" />
-        <Setter Property="MaxWidth" Value="100" />
+        <Setter Property="MinHeight" Value="50" />
+        <Setter Property="MinWidth" Value="50" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
-                    <ControlTemplate.Resources>
-                        <Style x:Key="Ellipse" TargetType="Ellipse">
-                            <Setter Property="Width" Value="15" />
-                            <Setter Property="Height" Value="15" />
-                            <Setter Property="Fill" Value="#2196F3" />
-                            <Setter Property="Canvas.Left" Value="42.5" />
-                            <Setter Property="RenderTransformOrigin" Value="0.5,3.33" />
-                        </Style>
-                    </ControlTemplate.Resources>
-                    <Canvas Width="100" Height="100">
-                        <Ellipse
-                            Width="100"
-                            Height="100"
-                            Fill="#f2f4f6" />
-                        <Label
-                            Width="100"
-                            Height="100"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            Content="Loading"
-                            FontFamily="Times New Roman"
-                            FontSize="16"
-                            FontWeight="Bold"
-                            Foreground="#6b48ff" />
-                        <Ellipse x:Name="e1" Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform Angle="0" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse x:Name="e2" Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform Angle="0" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse x:Name="e3" Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform Angle="0" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse x:Name="e4" Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform Angle="0" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse x:Name="e5" Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform Angle="0" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                    </Canvas>
+                    <Grid>
+                        <TK:TK_Icon
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            FontSize="Auto"
+                            Foreground="#2196F3"
+                            IconCode="Load_Rotary"
+                            RenderTransformOrigin="0.5,0.5">
+                            <TK:TK_Icon.RenderTransform>
+                                <RotateTransform x:Name="RunStory" Angle="0" />
+                            </TK:TK_Icon.RenderTransform>
+                        </TK:TK_Icon>
+                    </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="True">
                             <Trigger.EnterActions>
                                 <BeginStoryboard x:Name="Run">
-                                    <Storyboard RepeatBehavior="Forever" Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)">
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory" Storyboard.TargetProperty="Angle">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="360" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory" Storyboard.TargetProperty="Angle">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Card" TargetType="ContentControl">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="MinHeight" Value="50" />
+        <Setter Property="MinWidth" Value="50" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Margin="1"
+                            Background="#2196F3"
+                            RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="RunStory1" ScaleX="1" ScaleY="1" />
+                            </Border.RenderTransform>
+                        </Border>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="1"
+                            Background="#2196F3"
+                            RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="RunStory2" ScaleX="1" ScaleY="1" />
+                            </Border.RenderTransform>
+                        </Border>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Margin="1"
+                            Background="#2196F3"
+                            RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="RunStory3" ScaleX="1" ScaleY="1" />
+                            </Border.RenderTransform>
+                        </Border>
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="1"
+                            Background="#2196F3"
+                            RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="RunStory4" ScaleX="1" ScaleY="1" />
+                            </Border.RenderTransform>
+                        </Border>
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="1"
+                            Background="#2196F3"
+                            RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="RunStory5" ScaleX="1" ScaleY="1" />
+                            </Border.RenderTransform>
+                        </Border>
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Margin="1"
+                            Background="#2196F3"
+                            RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="RunStory6" ScaleX="1" ScaleY="1" />
+                            </Border.RenderTransform>
+                        </Border>
+                        <Border
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Margin="1"
+                            Background="#2196F3"
+                            RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="RunStory7" ScaleX="1" ScaleY="1" />
+                            </Border.RenderTransform>
+                        </Border>
+                        <Border
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="1"
+                            Background="#2196F3"
+                            RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="RunStory8" ScaleX="1" ScaleY="1" />
+                            </Border.RenderTransform>
+                        </Border>
+                        <Border
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Margin="1"
+                            Background="#2196F3"
+                            RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="RunStory9" ScaleX="1" ScaleY="1" />
+                            </Border.RenderTransform>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard x:Name="Run">
+                                    <Storyboard AutoReverse="False" RepeatBehavior="Forever">
                                         <DoubleAnimation
-                                            AccelerationRatio="0.1"
-                                            DecelerationRatio="0.9"
-                                            Storyboard.TargetName="e1"
-                                            To="360"
-                                            Duration="0:0:2">
+                                            BeginTime="0:0:0.0"
+                                            Storyboard.TargetName="RunStory7"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            To="0"
+                                            Duration="0:0:0.6">
                                             <DoubleAnimation.EasingFunction>
-                                                <PowerEase EasingMode="EaseInOut" Power="3" />
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation
-                                            AccelerationRatio="0.3"
-                                            DecelerationRatio="0.7"
-                                            Storyboard.TargetName="e2"
-                                            To="360"
-                                            Duration="0:0:2">
+                                            BeginTime="0:0:0.0"
+                                            Storyboard.TargetName="RunStory7"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            To="0"
+                                            Duration="0:0:0.6">
                                             <DoubleAnimation.EasingFunction>
-                                                <PowerEase EasingMode="EaseInOut" Power="3" />
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <DoubleAnimation
+                                            BeginTime="0:0:0.3"
+                                            Storyboard.TargetName="RunStory4"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            To="0"
+                                            Duration="0:0:0.6">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation
-                                            AccelerationRatio="0.5"
-                                            DecelerationRatio="0.5"
-                                            Storyboard.TargetName="e3"
-                                            To="360"
-                                            Duration="0:0:2">
+                                            BeginTime="0:0:0.3"
+                                            Storyboard.TargetName="RunStory4"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            To="0"
+                                            Duration="0:0:0.6">
                                             <DoubleAnimation.EasingFunction>
-                                                <PowerEase EasingMode="EaseInOut" Power="3" />
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation
-                                            AccelerationRatio="0.7"
-                                            DecelerationRatio="0.3"
-                                            Storyboard.TargetName="e4"
-                                            To="360"
-                                            Duration="0:0:2">
+                                            BeginTime="0:0:0.3"
+                                            Storyboard.TargetName="RunStory8"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            To="0"
+                                            Duration="0:0:0.6">
                                             <DoubleAnimation.EasingFunction>
-                                                <PowerEase EasingMode="EaseInOut" Power="3" />
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                         <DoubleAnimation
-                                            AccelerationRatio="0.9"
-                                            DecelerationRatio="0.1"
-                                            Storyboard.TargetName="e5"
-                                            To="360"
-                                            Duration="0:0:2">
+                                            BeginTime="0:0:0.3"
+                                            Storyboard.TargetName="RunStory8"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            To="0"
+                                            Duration="0:0:0.6">
                                             <DoubleAnimation.EasingFunction>
-                                                <PowerEase EasingMode="EaseInOut" Power="3" />
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <DoubleAnimation
+                                            BeginTime="0:0:0.6"
+                                            Storyboard.TargetName="RunStory1"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            To="0"
+                                            Duration="0:0:0.6">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            BeginTime="0:0:0.6"
+                                            Storyboard.TargetName="RunStory1"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            To="0"
+                                            Duration="0:0:0.6">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            BeginTime="0:0:0.6"
+                                            Storyboard.TargetName="RunStory5"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            To="0"
+                                            Duration="0:0:0.6">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            BeginTime="0:0:0.6"
+                                            Storyboard.TargetName="RunStory5"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            To="0"
+                                            Duration="0:0:0.6">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            BeginTime="0:0:0.6"
+                                            Storyboard.TargetName="RunStory9"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            To="0"
+                                            Duration="0:0:0.6">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            BeginTime="0:0:0.6"
+                                            Storyboard.TargetName="RunStory9"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            To="0"
+                                            Duration="0:0:0.6">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <DoubleAnimation
+                                            BeginTime="0:0:0.9"
+                                            Storyboard.TargetName="RunStory2"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            To="0"
+                                            Duration="0:0:0.6">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            BeginTime="0:0:0.9"
+                                            Storyboard.TargetName="RunStory2"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            To="0"
+                                            Duration="0:0:0.6">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            BeginTime="0:0:0.9"
+                                            Storyboard.TargetName="RunStory6"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            To="0"
+                                            Duration="0:0:0.6">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            BeginTime="0:0:0.9"
+                                            Storyboard.TargetName="RunStory6"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            To="0"
+                                            Duration="0:0:0.6">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+
+                                        <DoubleAnimation
+                                            BeginTime="0:0:1.2"
+                                            Storyboard.TargetName="RunStory3"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            To="0"
+                                            Duration="0:0:0.6">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            BeginTime="0:0:1.2"
+                                            Storyboard.TargetName="RunStory3"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            To="0"
+                                            Duration="0:0:0.6">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseIn" Power="3" />
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
@@ -176,182 +407,149 @@
 
     <Style x:Key="Marquee" TargetType="ContentControl">
         <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Height" Value="100" />
-        <Setter Property="Width" Value="100" />
-        <Setter Property="MaxHeight" Value="100" />
-        <Setter Property="MaxWidth" Value="100" />
+        <Setter Property="MinHeight" Value="50" />
+        <Setter Property="MinWidth" Value="50" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
-                    <ControlTemplate.Resources>
-                        <Style x:Key="Ellipse" TargetType="Ellipse">
-                            <Setter Property="Width" Value="20" />
-                            <Setter Property="Height" Value="20" />
-                            <Setter Property="RenderTransformOrigin" Value="0.5,2.5" />
-                            <Setter Property="Fill" Value="#ffaaaaaa" />
-                            <Setter Property="Canvas.Left" Value="40" />
-                            <Setter Property="Canvas.Top" Value="0" />
-                        </Style>
-                    </ControlTemplate.Resources>
-                    <Canvas Width="100" Height="100">
-                        <Ellipse
-                            Width="100"
-                            Height="100"
-                            Fill="#f2f4f6" />
-                        <Label
-                            Width="100"
-                            Height="100"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            Content="Loading"
-                            FontFamily="Times New Roman"
-                            FontSize="16"
-                            FontWeight="Bold"
-                            Foreground="#6b48ff" />
-                        <Ellipse Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform Angle="0" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform Angle="45" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform Angle="90" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform Angle="135" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform Angle="180" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform Angle="225" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform Angle="270" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform Angle="315" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle
+                            Grid.Column="0"
+                            Margin="3"
+                            Fill="#DEDEDE"
+                            RenderTransformOrigin="0,0.5">
+                            <Rectangle.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="0.7" />
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle
+                            x:Name="rec1"
+                            Grid.Column="0"
+                            Margin="3"
+                            Fill="#2196F3"
+                            RenderTransformOrigin="0,0.5">
+                            <Rectangle.RenderTransform>
 
-                        <Ellipse
+                                <ScaleTransform x:Name="RunStory1" ScaleX="0" ScaleY="0.7" />
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle
+                            Grid.Column="1"
+                            Margin="3"
+                            Fill="#DEDEDE"
+                            RenderTransformOrigin="0,0.5">
+                            <Rectangle.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="0.7" />
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle
+                            x:Name="rec2"
+                            Grid.Column="1"
+                            Margin="3"
                             Fill="#2196F3"
-                            Opacity="0.4"
-                            Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform x:Name="e1" Angle="45" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse
+                            RenderTransformOrigin="0,0.5">
+                            <Rectangle.RenderTransform>
+                                <ScaleTransform x:Name="RunStory2" ScaleX="0" ScaleY="0.7" />
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle
+                            Grid.Column="2"
+                            Margin="3"
+                            Fill="#DEDEDE"
+                            RenderTransformOrigin="0,0.5">
+                            <Rectangle.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="0.7" />
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle
+                            x:Name="rec3"
+                            Grid.Column="2"
+                            Margin="3"
                             Fill="#2196F3"
-                            Opacity="0.6"
-                            Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform x:Name="e2" Angle="90" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse
-                            Fill="#2196F3"
-                            Opacity="0.8"
-                            Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform x:Name="e3" Angle="135" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse
-                            Fill="#2196F3"
-                            Opacity="1"
-                            Style="{StaticResource Ellipse}">
-                            <Ellipse.RenderTransform>
-                                <RotateTransform x:Name="e4" Angle="180" />
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
+                            RenderTransformOrigin="0,0.5">
+                            <Rectangle.RenderTransform>
+                                <ScaleTransform x:Name="RunStory3" ScaleX="0" ScaleY="0.7" />
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle
+                            Grid.Column="3"
+                            Margin="3"
+                            Fill="#DEDEDE"
+                            RenderTransformOrigin="0,0.5">
+                            <Rectangle.RenderTransform>
 
-                    </Canvas>
+                                <ScaleTransform ScaleX="1" ScaleY="0.7" />
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle
+                            x:Name="rec4"
+                            Grid.Column="3"
+                            Margin="3"
+                            Fill="#2196F3"
+                            RenderTransformOrigin="0,0.5">
+                            <Rectangle.RenderTransform>
+                                <ScaleTransform x:Name="RunStory4" ScaleX="0" ScaleY="0.7" />
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                    </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="True">
                             <Trigger.EnterActions>
-                                <BeginStoryboard x:Name="Run1">
-                                    <Storyboard RepeatBehavior="Forever">
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="e1" Storyboard.TargetProperty="Angle">
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.1" Value="90" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.2" Value="135" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.3" Value="180" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.4" Value="225" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.5" Value="270" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.6" Value="315" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.7" Value="360" />
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                                <BeginStoryboard x:Name="Run2">
-                                    <Storyboard RepeatBehavior="Forever">
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="e2" Storyboard.TargetProperty="Angle">
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.1" Value="135" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.2" Value="180" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.3" Value="225" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.4" Value="270" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.5" Value="315" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.6" Value="360" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.7" Value="45" />
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                                <BeginStoryboard x:Name="Run3">
-                                    <Storyboard RepeatBehavior="Forever">
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="e3" Storyboard.TargetProperty="Angle">
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.1" Value="180" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.2" Value="225" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.3" Value="270" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.4" Value="315" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.5" Value="360" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.6" Value="45" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.7" Value="90" />
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                                <BeginStoryboard x:Name="Run4">
-                                    <Storyboard RepeatBehavior="Forever">
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="e4" Storyboard.TargetProperty="Angle">
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.1" Value="225" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.2" Value="270" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.3" Value="315" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.4" Value="360" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.5" Value="45" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.6" Value="90" />
-                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.7" Value="135" />
-                                        </DoubleAnimationUsingKeyFrames>
+                                <BeginStoryboard x:Name="Run">
+                                    <Storyboard
+                                        RepeatBehavior="Forever"
+                                        Storyboard.TargetProperty="ScaleX"
+                                        Duration="0:0:1">
+                                        <DoubleAnimation
+                                            BeginTime="0:0:0.0"
+                                            Storyboard.TargetName="RunStory1"
+                                            To="1"
+                                            Duration="0:0:0.25">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseOut" Power="1" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            BeginTime="0:0:0.25"
+                                            Storyboard.TargetName="RunStory2"
+                                            To="1"
+                                            Duration="0:0:0.25">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseOut" Power="1" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            BeginTime="0:0:0.5"
+                                            Storyboard.TargetName="RunStory3"
+                                            To="1"
+                                            Duration="0:0:0.25">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseOut" Power="1" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            AutoReverse="True"
+                                            BeginTime="0:0:0.75"
+                                            Storyboard.TargetName="RunStory4"
+                                            To="1"
+                                            Duration="0:0:0.25">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseOut" Power="1" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
                             <Trigger.ExitActions>
-                                <PauseStoryboard BeginStoryboardName="Run1" />
-                                <PauseStoryboard BeginStoryboardName="Run2" />
-                                <PauseStoryboard BeginStoryboardName="Run3" />
-                                <PauseStoryboard BeginStoryboardName="Run4" />
-                                <RemoveStoryboard BeginStoryboardName="Run1" />
-                                <RemoveStoryboard BeginStoryboardName="Run2" />
-                                <RemoveStoryboard BeginStoryboardName="Run3" />
-                                <RemoveStoryboard BeginStoryboardName="Run4" />
-                                <StopStoryboard BeginStoryboardName="Run1" />
-                                <StopStoryboard BeginStoryboardName="Run2" />
-                                <StopStoryboard BeginStoryboardName="Run3" />
-                                <StopStoryboard BeginStoryboardName="Run4" />
+                                <PauseStoryboard BeginStoryboardName="Run" />
+                                <RemoveStoryboard BeginStoryboardName="Run" />
+                                <StopStoryboard BeginStoryboardName="Run" />
                             </Trigger.ExitActions>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -373,153 +571,12 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                             <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Border
-                            x:Name="Bor1"
-                            Grid.Column="0"
-                            Width="15"
-                            Height="15"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="#2196F3"
-                            CornerRadius="7.5"
-                            RenderTransformOrigin="0.5,0.5">
-                            <Border.RenderTransform>
-                                <TranslateTransform x:Name="RunStory1" X="0" Y="0" />
-                            </Border.RenderTransform>
-                        </Border>
-                        <Border
-                            x:Name="Bor2"
-                            Grid.Column="1"
-                            Width="{Binding ElementName=grid, Path=ActualWidth}"
-                            Height="{Binding ElementName=grid, Path=Width}"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="#2196F3"
-                            CornerRadius="{Binding Path=Width, ElementName=grid, Converter={StaticResource DoubleToCornerRadiusConvert}}"
-                            RenderTransformOrigin="0.5,0.5">
-                            <Border.RenderTransform>
-                                <TranslateTransform x:Name="RunStory2" X="0" Y="0" />
-                            </Border.RenderTransform>
-                        </Border>
-                        <Border
-                            x:Name="Bor3"
-                            Grid.Column="2"
-                            Width="{Binding ElementName=grid, Path=Width}"
-                            Height="{Binding ElementName=grid, Path=Width}"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="#2196F3"
-                            CornerRadius="{Binding Path=Width, ElementName=grid, Converter={StaticResource DoubleToCornerRadiusConvert}}"
-                            RenderTransformOrigin="0.5,0.5">
-                            <Border.RenderTransform>
-                                <TranslateTransform x:Name="RunStory3" X="0" Y="0" />
-                            </Border.RenderTransform>
-                        </Border>
-                        <Border
-                            x:Name="Bor4"
-                            Grid.Column="3"
-                            Width="{Binding ElementName=grid, Path=Width}"
-                            Height="{Binding ElementName=grid, Path=Width}"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="#2196F3"
-                            CornerRadius="{Binding Path=Width, ElementName=grid, Converter={StaticResource DoubleToCornerRadiusConvert}}"
-                            RenderTransformOrigin="0.5,0.5">
-                            <Border.RenderTransform>
-                                <TranslateTransform x:Name="RunStory4" X="0" Y="0" />
-                            </Border.RenderTransform>
-                        </Border>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="True">
-                            <Trigger.EnterActions>
-                                <BeginStoryboard x:Name="Run">
-                                    <Storyboard RepeatBehavior="Forever" Storyboard.TargetProperty="Y">
-                                        <DoubleAnimation
-                                            AutoReverse="True"
-                                            BeginTime="0:0:0.0"
-                                            Storyboard.TargetName="RunStory1"
-                                            To="-20"
-                                            Duration="0:0:0.5">
-                                            <DoubleAnimation.EasingFunction>
-                                                <PowerEase EasingMode="EaseInOut" Power="2" />
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation
-                                            AutoReverse="True"
-                                            BeginTime="0:0:0.1"
-                                            Storyboard.TargetName="RunStory2"
-                                            To="-20"
-                                            Duration="0:0:0.5">
-                                            <DoubleAnimation.EasingFunction>
-                                                <PowerEase EasingMode="EaseInOut" Power="2" />
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation
-                                            AutoReverse="True"
-                                            BeginTime="0:0:0.2"
-                                            Storyboard.TargetName="RunStory3"
-                                            To="-20"
-                                            Duration="0:0:0.5">
-                                            <DoubleAnimation.EasingFunction>
-                                                <PowerEase EasingMode="EaseInOut" Power="2" />
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation
-                                            AutoReverse="True"
-                                            BeginTime="0:0:0.3"
-                                            Storyboard.TargetName="RunStory4"
-                                            To="-20"
-                                            Duration="0:0:0.5">
-                                            <DoubleAnimation.EasingFunction>
-                                                <PowerEase EasingMode="EaseInOut" Power="2" />
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                        <DoubleAnimation
-                                            AutoReverse="True"
-                                            BeginTime="0:0:0.4"
-                                            Storyboard.TargetName="RunStory5"
-                                            To="-20"
-                                            Duration="0:0:0.5">
-                                            <DoubleAnimation.EasingFunction>
-                                                <PowerEase EasingMode="EaseInOut" Power="2" />
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <PauseStoryboard BeginStoryboardName="Run" />
-                                <RemoveStoryboard BeginStoryboardName="Run" />
-                                <StopStoryboard BeginStoryboardName="Run" />
-                            </Trigger.ExitActions>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="Card" TargetType="ContentControl">
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="MinHeight" Value="50" />
-        <Setter Property="MinWidth" Value="50" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ContentControl">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Rectangle
                             x:Name="rec1"
                             Grid.Column="0"
-                            Margin="3"
+                            Margin="2"
                             Fill="#2196F3"
                             RenderTransformOrigin="0.5,0.5">
                             <Rectangle.RenderTransform>
@@ -529,7 +586,7 @@
                         <Rectangle
                             x:Name="rec2"
                             Grid.Column="1"
-                            Margin="3"
+                            Margin="2"
                             Fill="#2196F3"
                             RenderTransformOrigin="0.5,0.5">
                             <Rectangle.RenderTransform>
@@ -539,7 +596,7 @@
                         <Rectangle
                             x:Name="rec3"
                             Grid.Column="2"
-                            Margin="3"
+                            Margin="2"
                             Fill="#2196F3"
                             RenderTransformOrigin="0.5,0.5">
                             <Rectangle.RenderTransform>
@@ -549,7 +606,7 @@
                         <Rectangle
                             x:Name="rec4"
                             Grid.Column="3"
-                            Margin="3"
+                            Margin="2"
                             Fill="#2196F3"
                             RenderTransformOrigin="0.5,0.5">
                             <Rectangle.RenderTransform>
@@ -559,7 +616,7 @@
                         <Rectangle
                             x:Name="rec5"
                             Grid.Column="4"
-                            Margin="3"
+                            Margin="2"
                             Fill="#2196F3"
                             RenderTransformOrigin="0.5,0.5">
                             <Rectangle.RenderTransform>

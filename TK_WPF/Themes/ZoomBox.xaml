@@ -85,9 +85,9 @@
                         CornerRadius="{TemplateBinding CornerRadius}">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition Name="RunGrid" Height="Auto" />
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Name="RunGrid" Height="*" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -214,7 +214,7 @@
                                             Duration="0:0:0">
                                             <DiscreteObjectKeyFrame>
                                                 <DiscreteObjectKeyFrame.Value>
-                                                    <GridLength>Auto</GridLength>
+                                                    <GridLength>*</GridLength>
                                                 </DiscreteObjectKeyFrame.Value>
                                             </DiscreteObjectKeyFrame>
                                         </ObjectAnimationUsingKeyFrames>
