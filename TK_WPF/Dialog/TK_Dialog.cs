@@ -21,30 +21,31 @@ namespace TK_WPF
         /// <param name="closeHandle">关闭后处理程序</param>
         /// <param name="showCloseButton">是否显示默认关闭按钮</param>
         /// <returns>结果</returns>
-        public static async Task<object> Show(string identifier, object content, double cornerRadius = 5, string title = null, object parameters = null, Action<TK_DialogCard> openHandler = null, Action<TK_DialogCard, object> closeHandle = null, bool showCloseButton = true)
+        public static async Task<object> Show(string identifier, object content, double height = -1,double width=-1, string title = "Titel", object parameters = default, bool showCloseButton = true)
         {
             if (TK_Message.Containers.TryGetValue(identifier, out TK_Container dialog) && !dialog.IsBusy)
             {
+                object result = new object();
                 dialog.Dispatcher.VerifyAccess();
                 var taskCompletionSource = new TaskCompletionSource<object>();
-                TK_DialogCard card = new TK_DialogCard();
-                card.CornerRadius = new CornerRadius(cornerRadius);
+                TK_DialogCard card = new TK_DialogCard()
+                {
+                    CornerRadius = new CornerRadius(5),
+                    Height =height<=0? Application.Current.MainWindow.ActualHeight * 3 / 5:height,
+                    Width=width<=0?Application.Current.MainWindow.ActualWidth * 3 / 5:width,
+                };
                 if (content is FrameworkElement element && element.DataContext is IDialogViewModel dialogContext)
                 {
                     card.Title = string.IsNullOrEmpty(dialogContext.Title) ? title : dialogContext.Title;
                     dialogContext.RequestClose += (param) =>
                     {
-                        dialog.RemoveCenter(card);
-                        dialog.IsBusy = false;
-                        closeHandle?.Invoke(card, param);
-                        taskCompletionSource.TrySetResult(param);
+                        card.ShowDialog = false;
+                        result = param;
                     };
                     card.CloseHandler = (param) =>
                     {
-                        dialog.RemoveCenter(card);
-                        dialog.IsBusy = false;
-                        closeHandle?.Invoke(card, param);
-                        taskCompletionSource.TrySetResult(param);
+                        card.ShowDialog = false;
+                        result = param;
                     };
                 }
                 else
@@ -55,8 +56,14 @@ namespace TK_WPF
 
                 card.DialogContent = content;
                 card.ShowCloseButton = showCloseButton;
+                card.Close += (s, e) =>
+                {
+                    dialog.RemoveCenter(card);
+                    dialog.IsBusy = false;
+                    taskCompletionSource.TrySetResult(result);
+                };
                 dialog.AddCenter(card);
-                openHandler?.Invoke(card);
+                card.ShowDialog = true;
                 dialog.IsBusy = true;
                 dialogContext.OnDialogOpened(parameters);
 

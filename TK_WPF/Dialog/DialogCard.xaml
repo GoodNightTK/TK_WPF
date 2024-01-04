@@ -7,6 +7,28 @@
     <CV:BoolToVisibilityConvert x:Key="BooleanToVisibleConverter" />
 
 
+    <Storyboard x:Key="StartStory">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity">
+            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1" />
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Storyboard x:Key="EndStory">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory" Storyboard.TargetProperty="ScaleX">
+            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
+            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0" />
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory" Storyboard.TargetProperty="ScaleY">
+            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
+            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0" />
+        </DoubleAnimationUsingKeyFrames>
+        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="Closed">
+            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False" />
+            <DiscreteBooleanKeyFrame KeyTime="0:0:0.3" Value="True" />
+        </BooleanAnimationUsingKeyFrames>
+    </Storyboard>
+
     <Style TargetType="TK:TK_DialogCard">
         <Setter Property="Background" Value="White" />
         <Setter Property="BorderThickness" Value="0" />
@@ -22,10 +44,6 @@
         <Setter Property="Width" Value="Auto" />
         <Setter Property="Height" Value="Auto" />
         <Setter Property="FontSize" Value="25" />
-        <Setter Property="MinHeight" Value="200" />
-        <Setter Property="MinWidth" Value="200" />
-        <Setter Property="MaxHeight" Value="600" />
-        <Setter Property="MaxWidth" Value="600" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TK:TK_DialogCard">
@@ -33,7 +51,8 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        RenderTransformOrigin="0.5,0.5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="50" />
@@ -78,6 +97,9 @@
                                 ShadowDepth="0"
                                 Color="#BDBDBD" />
                         </Border.Effect>
+                        <Border.RenderTransform>
+                            <ScaleTransform x:Name="RunStory" ScaleX="1" ScaleY="1" />
+                        </Border.RenderTransform>
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
@@ -87,6 +109,15 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="PART_Title" Property="Visibility" Value="Collapsed" />
                         </MultiTrigger>
+                        <Trigger Property="ShowDialog"
+                                 Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource ResourceKey=StartStory}" />
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource ResourceKey=EndStory}" />
+                            </Trigger.ExitActions>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

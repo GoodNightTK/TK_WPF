@@ -43,6 +43,7 @@ namespace TestDemo
 
         private async void TK_Button_Click_1(object sender, RoutedEventArgs e)
         {
+            await TK_WPF.TK_Dialog.Show("MainWindow",new UserControl1());
            await TK_WPF.TK_Loading.Wave("MainWindow","加载中......", async (o) =>
            {
                await Task.Delay(5000);

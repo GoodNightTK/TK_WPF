@@ -49,6 +49,7 @@ namespace TK_WPF
             };
             card.Close += (s, e) =>
             {
+                container.RemoveCenter(card);
                 container.IsBusy = false;
                 result.TrySetResult(card.Result);
             };

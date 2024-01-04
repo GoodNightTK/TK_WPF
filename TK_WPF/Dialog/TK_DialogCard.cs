@@ -51,8 +51,10 @@ namespace TK_WPF
     [TemplatePart(Name = TitleName, Type = (typeof(Border)))]
     public class TK_DialogCard : ContentControl
     {
+        public static readonly RoutedEvent CloseEvent;
         static TK_DialogCard()
         {
+            CloseEvent = EventManager.RegisterRoutedEvent("Close", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TK_DialogCard));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TK_DialogCard), new FrameworkPropertyMetadata(typeof(TK_DialogCard)));
         }
 
@@ -87,6 +89,16 @@ namespace TK_WPF
                 CloseHandler?.Invoke(null);
             };
         }
+
+        #region 事件
+        // 关闭消息事件
+        public event RoutedEventHandler Close
+        {
+            add { base.AddHandler(TK_DialogCard.CloseEvent, value); }
+            remove { base.RemoveHandler(TK_DialogCard.CloseEvent, value); }
+        }
+        #endregion
+
         #region 依赖属性
         /// <summary>
         /// 对话框内容
@@ -142,6 +154,40 @@ namespace TK_WPF
         // Using a DependencyProperty as the backing store for ShowCloseButton.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShowCloseButtonProperty =
             DependencyProperty.Register("ShowCloseButton", typeof(bool), typeof(TK_DialogCard), new PropertyMetadata());
+
+        public bool ShowDialog
+        {
+            get { return (bool)GetValue(ShowDialogProperty); }
+            set { SetValue(ShowDialogProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowMessageBox.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowDialogProperty =
+            DependencyProperty.Register("ShowDialog", typeof(bool), typeof(TK_DialogCard), new PropertyMetadata());
+
+
+
+        public bool Closed
+        {
+            get { return (bool)GetValue(ClosedProperty); }
+            set { SetValue(ClosedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Closed.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ClosedProperty =
+            DependencyProperty.Register("Closed", typeof(bool), typeof(TK_DialogCard), new PropertyMetadata(false, new PropertyChangedCallback(OnClosedChange)));
+
+        private static void OnClosedChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)(e.NewValue))
+            {
+                if (d is TK_DialogCard card)
+                {
+                    RoutedEventArgs args = new RoutedEventArgs(CloseEvent);
+                    card.RaiseEvent(args);
+                }
+            }
+        }
         #endregion 依赖属性
     }
 
