@@ -75,7 +75,7 @@ namespace TK_WPF
 
         private StackPanel messageStackPanel;
         private StackPanel notificationStackPanel;
-        private ContentControl centerContent;
+        public ContentControl centerContent;
 
 
         /// <inheritdoc/>

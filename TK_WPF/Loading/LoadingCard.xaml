@@ -5,22 +5,17 @@
     xmlns:TK="clr-namespace:TK_WPF">
 
     <CV:DoubleToCornerRadiusConvert x:Key="DoubleToCornerRadiusConvert" />
+    <CV:MenuDoubleToGridSize x:Key="MenuDoubleToGridSize" />
 
     <Storyboard x:Key="EndStory">
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory" Storyboard.TargetProperty="Y">
-            <EasingDoubleKeyFrame KeyTime="0" Value="0" />
-            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-40">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory" Storyboard.TargetProperty="ScaleX">
+            <EasingDoubleKeyFrame KeyTime="0" Value="1" />
+            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
                 <EasingDoubleKeyFrame.EasingFunction>
                     <CircleEase EasingMode="EaseOut" />
                 </EasingDoubleKeyFrame.EasingFunction>
             </EasingDoubleKeyFrame>
         </DoubleAnimationUsingKeyFrames>
-        <DoubleAnimation
-            Storyboard.TargetName="PART_Content"
-            Storyboard.TargetProperty="Opacity"
-            From="1"
-            To="0"
-            Duration="0:0:0.5" />
         <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="Closed">
             <DiscreteBooleanKeyFrame KeyTime="0" Value="False" />
             <DiscreteBooleanKeyFrame KeyTime="0:0:0.5" Value="True" />
@@ -28,20 +23,14 @@
     </Storyboard>
 
     <Storyboard x:Key="StartStory">
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory" Storyboard.TargetProperty="Y">
-            <EasingDoubleKeyFrame KeyTime="0" Value="-40" />
-            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RunStory" Storyboard.TargetProperty="ScaleX">
+            <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
                 <EasingDoubleKeyFrame.EasingFunction>
                     <CircleEase EasingMode="EaseOut" />
                 </EasingDoubleKeyFrame.EasingFunction>
             </EasingDoubleKeyFrame>
         </DoubleAnimationUsingKeyFrames>
-        <DoubleAnimation
-            Storyboard.TargetName="PART_Content"
-            Storyboard.TargetProperty="Opacity"
-            From="0"
-            To="1"
-            Duration="0:0:0.5" />
     </Storyboard>
 
 
@@ -697,17 +686,15 @@
     <Style TargetType="TK:TK_LoadingCard">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="LoadType" Value="Marquee" />
+        <Setter Property="Width" Value="50" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TK:TK_LoadingCard">
                     <ContentControl
                         Name="PART_Content"
-                        IsEnabled="{TemplateBinding IsEnabled}"
-                        RenderTransformOrigin="0.5,0.5">
-                        <ContentControl.RenderTransform>
-                            <TranslateTransform x:Name="RunStory" />
-                        </ContentControl.RenderTransform>
-                    </ContentControl>
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Width}"
+                        IsEnabled="{TemplateBinding IsEnabled}" />
                     <ControlTemplate.Triggers>
                         <Trigger Property="LoadType" Value="Marquee">
                             <Setter TargetName="PART_Content" Property="Style" Value="{StaticResource Marquee}" />
@@ -721,6 +708,60 @@
                         <Trigger Property="LoadType" Value="Card">
                             <Setter TargetName="PART_Content" Property="Style" Value="{StaticResource Card}" />
                         </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="TK:TK_LoadingBase">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="LoadType" Value="Marquee" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="MinHeight" Value="70" />
+        <Setter Property="MinWidth" Value="70" />
+        <Setter Property="MaxWidth" Value="500" />
+        <Setter Property="FontSize" Value="25" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TK:TK_LoadingBase">
+                    <Grid RenderTransformOrigin="0,0.5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TK:TK_LoadingBase}, Converter={StaticResource MenuDoubleToGridSize}}" MinWidth="70" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border
+                            Grid.ColumnSpan="2"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="0"
+                            CornerRadius="5">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="7"
+                                    Direction="0"
+                                    Opacity="0.8"
+                                    ShadowDepth="0"
+                                    Color="#BDBDBD" />
+                            </Border.Effect>
+                        </Border>
+                        <TK:TK_LoadingCard
+                            Grid.Column="0"
+                            Margin="10"
+                            LoadType="{TemplateBinding LoadType}" 
+                            />
+                        <ContentPresenter
+                            Grid.Column="1"
+                            Margin="10,10,20,10"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Content}" />
+                        <Grid.RenderTransform>
+                            <ScaleTransform x:Name="RunStory" ScaleX="1" ScaleY="1" />
+                        </Grid.RenderTransform>
+                    </Grid>
+                    <ControlTemplate.Triggers>
                         <Trigger Property="ShowLoading" Value="True">
                             <Trigger.EnterActions>
                                 <BeginStoryboard Storyboard="{StaticResource ResourceKey=StartStory}" />
@@ -734,5 +775,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>

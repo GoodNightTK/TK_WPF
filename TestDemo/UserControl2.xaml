@@ -23,32 +23,16 @@
                 Icon="Card_Question"
                 IsOpen="True">
                 <TK:TK_ZoomBox.TopContent>
-                    <TK:TK_Button />
+                    <TK:TK_Button Click="TK_Button_Click_1" />
                 </TK:TK_ZoomBox.TopContent>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Border
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Width="50"
-                        Height="100"
-                        Margin="5"
-                        Background="AliceBlue" />
-                </Grid>
+
             </TK:TK_ZoomBox>
+            <TK:TK_LoadingBase
+              
+                Height="70"
+                Content="加载中"
+                LoadType="Card"
+                ShowLoading="True" />
             <TK:TK_LoadingCard
                 Width="50"
                 Height="50"
@@ -57,9 +41,11 @@
                 Width="50"
                 Height="50"
                 LoadType="Card" />
-            <TK:TK_LoadingCard Width="50"
-                               Height="50"
-                               LoadType="Marquee" IsEnabled="True"/>
+            <TK:TK_LoadingCard
+                Width="50"
+                Height="50"
+                IsEnabled="True"
+                LoadType="Marquee" />
             <TK:TK_LoadingCard
                 Width="80"
                 Height="80"

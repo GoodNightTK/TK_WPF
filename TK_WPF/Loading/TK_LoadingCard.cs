@@ -58,21 +58,10 @@ namespace TK_WPF
     /// </summary>
     public class TK_LoadingCard : ContentControl
     {
-        public static readonly RoutedEvent CloseEvent;
         static TK_LoadingCard()
         {
-            CloseEvent = EventManager.RegisterRoutedEvent("Close", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TK_LoadingCard));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TK_LoadingCard), new FrameworkPropertyMetadata(typeof(TK_LoadingCard)));
         }
-
-        #region 事件
-        // 关闭消息事件
-        public event RoutedEventHandler Close
-        {
-            add { base.AddHandler(TK_LoadingCard.CloseEvent, value); }
-            remove { base.RemoveHandler(TK_LoadingCard.CloseEvent, value); }
-        }
-        #endregion
 
         #region 属性
 
@@ -88,47 +77,6 @@ namespace TK_WPF
         // Using a DependencyProperty as the backing store for LoadType.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LoadTypeProperty =
             DependencyProperty.Register("LoadType", typeof(LoadType), typeof(TK_LoadingCard), new PropertyMetadata());
-
-
-
-        /// <summary>
-        /// 展示等待框
-        /// </summary>
-        public bool ShowLoading
-        {
-            get { return (bool)GetValue(ShowLoadingProperty); }
-            set { SetValue(ShowLoadingProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for ShowLoading.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ShowLoadingProperty =
-            DependencyProperty.Register("ShowLoading", typeof(bool), typeof(TK_LoadingCard), new PropertyMetadata());
-
-
-        /// <summary>
-        /// 关闭等待框
-        /// </summary>
-        public bool Closed
-        {
-            get { return (bool)GetValue(ClosedProperty); }
-            set { SetValue(ClosedProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Closed.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ClosedProperty =
-            DependencyProperty.Register("Closed", typeof(bool), typeof(TK_LoadingCard), new PropertyMetadata(false, new PropertyChangedCallback(OnClosedChange)));
-
-        private static void OnClosedChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if ((bool)(e.NewValue))
-            {
-                if (d is TK_LoadingCard card)
-                {
-                    RoutedEventArgs args = new RoutedEventArgs(CloseEvent);
-                    card.RaiseEvent(args);
-                }
-            }
-        }
         #endregion
     }
 }

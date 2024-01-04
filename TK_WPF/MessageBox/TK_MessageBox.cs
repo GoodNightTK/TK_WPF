@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows;
 
 namespace TK_WPF
 {
@@ -29,6 +30,8 @@ namespace TK_WPF
                 return await result.Task;
             }
             TK_Container container = TK_Message.Containers[Identifier];
+            double height = container.centerContent.MaxHeight;
+            double width= container.centerContent.MaxWidth;
             if(container.IsBusy)
             {
                 result.TrySetResult(MessageBoxResult.None);
@@ -40,7 +43,9 @@ namespace TK_WPF
             {
                 Message = message,
                 MessageBoxType = icon,
-                MessageBoxButton = button
+                MessageBoxButton = button,
+                Height = height * 1/3,
+                Width = width * 1/3
             };
             card.Close += (s, e) =>
             {
