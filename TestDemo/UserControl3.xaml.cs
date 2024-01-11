@@ -16,19 +16,15 @@ using System.Windows.Shapes;
 namespace TestDemo
 {
     /// <summary>
-    /// UserControl1.xaml 的交互逻辑
+    /// UserControl3.xaml 的交互逻辑
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class UserControl3 : UserControl
     {
-        public UserControl1()
+        public UserControl3()
         {
             InitializeComponent();
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-                await TK_WPF.TK_Dialog.Show("Test", new UserControl3());
-              
-            }
+       
     }
 }

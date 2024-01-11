@@ -54,7 +54,7 @@ namespace TK_WPF
         public static readonly RoutedEvent CloseEvent;
         static TK_DialogCard()
         {
-            CloseEvent = EventManager.RegisterRoutedEvent("Close", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TK_DialogCard));
+            CloseEvent = EventManager.RegisterRoutedEvent("Close", RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(TK_DialogCard));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TK_DialogCard), new FrameworkPropertyMetadata(typeof(TK_DialogCard)));
         }
 

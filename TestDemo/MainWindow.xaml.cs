@@ -29,14 +29,8 @@ namespace TestDemo
             {
                 new TK_WindowMenu("测试",IconCode.CheckBox_UnCheck,"",new List<TK_WindowMenu>()
                 {
-                    new TK_WindowMenu("测试1",new UserControl1(),IconCode.CheckBox_Check,""),
                     new TK_WindowMenu("测试2",new UserControl2(),IconCode.Card_Question,"")
-                }),
-                 new TK_WindowMenu("测试一",IconCode.CheckBox_UnCheck,"",new List<TK_WindowMenu>()
-                {
-                    new TK_WindowMenu("测试1",new UserControl1(),IconCode.CheckBox_Check,""),
-                    new TK_WindowMenu("测试2",new UserControl2(),IconCode.Card_Question,"")
-                }),
+                })
             };
         }
     }

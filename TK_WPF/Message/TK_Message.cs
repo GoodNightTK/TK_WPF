@@ -114,6 +114,10 @@ namespace TK_WPF
             {
                 Containers.Add(identify, container);
             }
+            else
+            {
+                Containers[identify] = container;
+            }
         }
         public static void RemoveContainer(string identify)
         {

@@ -109,8 +109,7 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="PART_Title" Property="Visibility" Value="Collapsed" />
                         </MultiTrigger>
-                        <Trigger Property="ShowDialog"
-                                 Value="True">
+                        <Trigger Property="ShowDialog" Value="True">
                             <Trigger.EnterActions>
                                 <BeginStoryboard Storyboard="{StaticResource ResourceKey=StartStory}" />
                             </Trigger.EnterActions>
