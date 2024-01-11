@@ -19,7 +19,6 @@
         <Setter Property="Interval" Value="1" />
         <Setter Property="MinValue" Value="-999" />
         <Setter Property="MaxValue" Value="999" />
-        <Setter Property="FontSize" Value="30" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TK:TK_NumberTextBox">
