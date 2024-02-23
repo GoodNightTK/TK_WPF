@@ -97,8 +97,8 @@ namespace TK_WPF
         {
             if (sender is TK_Container container)
             {
-                centerContent.MaxHeight = container.ActualHeight * 3 / 4;
-                centerContent.MaxWidth = container.ActualWidth * 3 / 4;
+                centerContent.MaxHeight = container.ActualHeight * 9 / 10;
+                centerContent.MaxWidth = container.ActualWidth * 9 / 10;
             }
         }
 

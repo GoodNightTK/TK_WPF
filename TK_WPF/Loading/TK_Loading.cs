@@ -30,7 +30,7 @@ namespace TK_WPF
                     LoadType = type,
                     IsEnabled = true,
                     Content = message,
-                    Height=container.centerContent.MaxHeight*1/6
+                    Height=container.centerContent.MaxHeight*1/8
                 };
                 card.Close += (s, e) =>
                 {

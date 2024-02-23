@@ -31,8 +31,8 @@ namespace TK_WPF
                 TK_DialogCard card = new TK_DialogCard()
                 {
                     CornerRadius = new CornerRadius(5),
-                    Height =height<=0? dialog.centerContent.MaxHeight * 4 / 5:height,
-                    Width=width<=0?dialog.centerContent.MaxWidth * 4 / 5:width,
+                    Height =height<=0? dialog.centerContent.MaxHeight * 9 / 10:height,
+                    Width=width<=0?dialog.centerContent.MaxWidth * 9 / 10:width,
                 };
                 if (content is FrameworkElement element && element.DataContext is IDialogViewModel dialogContext)
                 {

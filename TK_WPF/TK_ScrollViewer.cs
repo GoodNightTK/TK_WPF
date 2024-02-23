@@ -67,9 +67,6 @@ namespace TK_WPF
         public static readonly DependencyProperty ThumbWidthProperty =
             DependencyProperty.Register("ThumbWidth", typeof(double), typeof(TK_ScrollViewer), new PropertyMetadata());
 
-
-
-
         /// <summary>
         /// 滑块颜色
         /// </summary>

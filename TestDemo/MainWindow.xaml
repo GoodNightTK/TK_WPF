@@ -11,5 +11,5 @@
     Height="450"
     FontSize="20"
     mc:Ignorable="d">
-    <TK:TK_MainMenu Name="menu" FontSize="20" />
+    <TabControl  />
 </TK:TK_MainWindow>

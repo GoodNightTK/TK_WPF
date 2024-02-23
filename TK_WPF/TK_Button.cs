@@ -69,10 +69,10 @@ namespace TK_WPF
             base.OnApplyTemplate();
             if (this.UnPressCommand != null && this.ClickMode == ClickMode.Press)
             {
-                this.AddHandler(Button.PreviewMouseLeftButtonUpEvent, new MouseButtonEventHandler((s, e) =>
+                this.AddHandler(Button.MouseUpEvent, new MouseButtonEventHandler((s, e) =>
                 {
                     this.UnPressCommand?.Execute(this.UnPressCommandParameper);
-                }));
+                }),true);
             }
         }
 
