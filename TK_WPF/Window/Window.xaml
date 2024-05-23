@@ -19,8 +19,8 @@
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="WindowStyle" Value="SingleBorderWindow" />
         <Setter Property="TitleShadow" Value="False" />
-        <Setter Property="TitleHeight" Value="32" />
-        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="TitleHeight"
+                Value="32" />
         <Setter Property="TitleBarContent" Value="{x:Null}" />
         <Setter Property="TitleForeground" Value="White" />
         <Setter Property="InactiveBorderBrush" Value="#2196F3" />

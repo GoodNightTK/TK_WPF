@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net46;net461;net47;net472;net48;net5.0-windows;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net45;net46;net461;net47;net472;net48;net6.0-windows;net8.0-windows</TargetFrameworks>
 	  <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>

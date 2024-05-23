@@ -10,6 +10,4 @@
     Width="800"
     Height="450"
     FontSize="20"
-    mc:Ignorable="d">
-    <TabControl  />
-</TK:TK_MainWindow>
+    mc:Ignorable="d" />

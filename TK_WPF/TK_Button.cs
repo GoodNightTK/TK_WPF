@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace TK_WPF
 {
@@ -67,13 +68,6 @@ namespace TK_WPF
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            if (this.UnPressCommand != null && this.ClickMode == ClickMode.Press)
-            {
-                this.AddHandler(Button.MouseUpEvent, new MouseButtonEventHandler((s, e) =>
-                {
-                    this.UnPressCommand?.Execute(this.UnPressCommandParameper);
-                }),true);
-            }
         }
 
 
@@ -162,6 +156,19 @@ namespace TK_WPF
             DependencyProperty.Register("ButtonShowType", typeof(ButtonShowType), typeof(TK_Button), new PropertyMetadata());
 
 
+
+        /// <summary>
+        /// 长按时间
+        /// </summary>
+        public int LongPressTime
+        {
+            get { return (int)GetValue(LongPressTimeProperty); }
+            set { SetValue(LongPressTimeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for LongPressTime.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LongPressTimeProperty =
+            DependencyProperty.Register("LongPressTime", typeof(int), typeof(TK_Button), new PropertyMetadata(400));
         /// <summary>
         /// 按钮松开命令
         /// </summary>
@@ -174,8 +181,6 @@ namespace TK_WPF
         // Using a DependencyProperty as the backing store for ButtonUpCommand.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty UnPressCommandProperty =
             DependencyProperty.Register("UnPressCommand", typeof(ICommand), typeof(TK_Button), new PropertyMetadata(default(ICommand)));
-
-
         /// <summary>
         /// 松开按钮命令参数
         /// </summary>
@@ -188,9 +193,116 @@ namespace TK_WPF
         // Using a DependencyProperty as the backing store for UnPressCommandParamper.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty UnPressCommandParameperProperty =
             DependencyProperty.Register("UnPressCommandParameper", typeof(object), typeof(TK_Button), new PropertyMetadata());
+        /// <summary>
+        /// 按钮按下命令
+        /// </summary>
+        public ICommand PressCommand
+        {
+            get { return (ICommand)GetValue(PressCommandProperty); }
+            set { SetValue(PressCommandProperty, value); }
+        }
 
+        // Using a DependencyProperty as the backing store for ButtonUpCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PressCommandProperty =
+            DependencyProperty.Register("PressCommand", typeof(ICommand), typeof(TK_Button), new PropertyMetadata(default(ICommand)));
+        /// <summary>
+        /// 按下按钮命令参数
+        /// </summary>
+        public object PressCommandParameper
+        {
+            get { return (object)GetValue(PressCommandParameperProperty); }
+            set { SetValue(PressCommandParameperProperty, value); }
+        }
 
+        // Using a DependencyProperty as the backing store for UnPressCommandParamper.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PressCommandParameperProperty =
+            DependencyProperty.Register("PressCommandParameper", typeof(object), typeof(TK_Button), new PropertyMetadata());
+        /// <summary>
+        /// 按下按钮事件
+        /// </summary>
+        public static readonly RoutedEvent PressEvent
+            = EventManager.RegisterRoutedEvent("Press",
+                RoutingStrategy.Bubble,
+                typeof(RoutedEventHandler),
+                typeof(TK_Button));
+
+        public event RoutedEventHandler Press
+        {
+            add => AddHandler(PressEvent, value);
+            remove => RemoveHandler(PressEvent, value);
+        }
+        /// <summary>
+        /// 松开按钮事件
+        /// </summary>
+        public static readonly RoutedEvent UnPressEvent
+            = EventManager.RegisterRoutedEvent("UnPress",
+                RoutingStrategy.Bubble,
+                typeof(RoutedEventHandler),
+                typeof(TK_Button));
+
+        public event RoutedEventHandler UnPress
+        {
+            add => AddHandler(UnPressEvent, value);
+            remove => RemoveHandler(UnPressEvent, value);
+        }
         #endregion
 
+
+        private DispatcherTimer _pressDispatcherTimer = new DispatcherTimer();
+        private bool isLongPress = false;
+        public TK_Button()
+        {
+            _pressDispatcherTimer.Tick += OnDispatcherTimeOut;
+        }
+
+        /// <summary>
+        /// 时间到置位长按标志位
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnDispatcherTimeOut(object sender, EventArgs e)
+        {
+            isLongPress = true;
+            PressCommand?.Execute(PressCommandParameper);
+            RaiseEvent(new RoutedEventArgs(PressEvent));
+            _pressDispatcherTimer.Stop();
+        }
+        /// <summary>
+        /// 按下开始计时
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            isLongPress = false;
+            _pressDispatcherTimer.Stop();
+            _pressDispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, LongPressTime);
+            _pressDispatcherTimer.Start();
+        }
+        /// <summary>
+        /// 松开结束计时
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonUp(e);
+            _pressDispatcherTimer.Stop();
+        }
+        /// <summary>
+        /// 按钮点击事件，区分长按或点击
+        /// </summary>
+        protected override void OnClick()
+        {
+            if (!isLongPress)
+            {
+                base.OnClick();
+            }
+            else
+            {
+                UnPressCommand?.Execute(UnPressCommandParameper);
+                RaiseEvent(new RoutedEventArgs(UnPressEvent));
+                isLongPress = false;
+            }
+        }
     }
 }

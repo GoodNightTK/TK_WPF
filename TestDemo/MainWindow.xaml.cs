@@ -25,13 +25,13 @@ namespace TestDemo
         public MainWindow()
         {
             InitializeComponent();
-            menu.ItemsSource = new ObservableCollection<TK_WindowMenu>()
-            {
-                new TK_WindowMenu("测试",IconCode.CheckBox_UnCheck,"",new List<TK_WindowMenu>()
-                {
-                    new TK_WindowMenu("测试2",new UserControl2(),IconCode.Card_Question,"")
-                })
-            };
+            //menu.ItemsSource = new ObservableCollection<TK_WindowMenu>()
+            //{
+            //    new TK_WindowMenu("测试",IconCode.CheckBox_UnCheck,"",new List<TK_WindowMenu>()
+            //    {
+            //        new TK_WindowMenu("测试2",new UserControl2(),IconCode.Card_Question,"")
+            //    })
+            //};
         }
     }
 }
